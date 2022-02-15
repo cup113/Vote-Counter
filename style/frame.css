@@ -1,0 +1,32 @@
+:root {
+    font-size: 16px;
+}
+
+#title-div {
+    display: block;
+    text-align: center;
+    font-size: 3rem;
+    font-weight: bold;
+}
+
+#vote-tips {
+    display: block;
+    height: 5rem;
+    overflow: hidden;
+    margin: 1rem 2rem;
+    border: 2px solid black;
+    padding: 2px;
+}
+
+#vote-tips>span {
+    display: inline-block;
+    line-height: 1.6rem;
+    font-size: 1.5rem;
+    padding-right: 0.5rem;
+    margin-right: 0.5rem;
+    border-right: 1px solid black;
+}
+
+#third-line {
+    vertical-align: top;
+}

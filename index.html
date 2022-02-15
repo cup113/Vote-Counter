@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+    <meta name="charset" content="utf-8"/>
+    <meta name="generator" content="Visual Studio Code"/>
+    <meta name="author" content="Jason Li"/>
+    <meta name="description" content="计票器是一个在线计票网站。通过点击计票，实时显示排名。如果对参选人员编号熟悉，那么这里绝对是你的不二之选。">
+    <meta name="keywords" content="计票,计票器,排名"/>
+    <meta name="robots" content="index,follow"/>
+    <title>计票器</title>
+    <link rel="stylesheet" href="style/frame.css"/>
+    <link rel="stylesheet" href="../Lib/footer.css">
+    <link rel="stylesheet" href="../Lib/button.css">
+    <link rel="stylesheet" href="../Lib/fullscreen.css">
+    <link rel="stylesheet" href="../Lib/setting-icon.css">
+    <link rel="stylesheet" href="style/elector.css">
+    <link rel="stylesheet" href="style/rank.css">
+    <link rel="stylesheet" href="style/setting.css">
+    <link rel="shortcut icon" href="../img/cube.ico" type="image/x-icon">
+    <script src="../Lib/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <div id="title-div"><span class="button-i" contenteditable="true" oninput="LC.config.set_title($('#title').text(), true)" id="title">计票器</span></div>
+    <button id="setting-icon" class="button-d" onclick="click_setting_icon();"><img src="../img/settings.svg"></button>
+    <div id="vote-tips">
+        <!--投票记录区-->
+    </div>
+    <div id="voting-div">
+        <!--投票区-->
+        <span>
+            当前单次投票数:
+            <span id="voteNum" class="button-i" contenteditable="true" onpointerdown="$('#votenum').focus()" oninput="LC.config.set_voteSingle(parseInt($('#voteNum').text()), true);">1</span>
+        </span>
+        <button onclick="add_voteNum(1);" class="button-d">+</button>
+        <button onclick="add_voteNum(-1);" class="button-d">-</button>
+        <div id="vote-buttons">
+        </div>
+    </div
+    ><div id="rank-chart">
+        <!--图表排名区-->
+    </div>
+    
+    <div id="settings-div" class="fullscreen none-display">
+        <!--设置-->
+        <div class="button-d close-icon-fullscreen" onclick="click_setting_icon();">
+			<img src="../img/close.svg">
+		</div>
+        <p>设置</p>
+        <p>
+            <span>标题: </span><input value="" type="text" id="titleSet" placeholder="请输入标题"/>
+        </p>
+        <p>
+            <span>人员名单: </span>
+            <textarea id="electors-list" placeholder="用英文逗号分隔"></textarea>
+        </p>
+        <p>
+            <span title="此名次及以上才有效">主分割线: </span>
+            <input type="number" min="1" step="1" id="mainSepLineSet" placeholder="" title="此名次及以上才有效">
+        </p>
+        <p>
+            <span title="此名次及以上更好，可与主分割线重合">副分割线: </span>
+            <input type="number" min="0" step="1" id="secSepLineSet" placeholder="" title="此名次及以上更好，可与主分割线重合">
+        </p>
+        <p>
+            <button class="button-d" onclick="show_storage();">查看本地数据</button>
+            <button class="button-d" onclick="import_storage();">导入到本地数据</button>
+            <button class="button-d" onclick="reset_votes();">重置进度</button>
+            <button class="button-d" onclick="start_change_electors();">编辑人员</button>
+        </p>
+        <p>
+            <button class="button-d" onclick="submit_setting(true);">确定并保存</button>
+            <button class="button-d" onclick="submit_setting();">确定</button>
+            <button class="button-d" onclick="reset_setting();">重置</button>
+        </p>
+    </div>
+    <div id="electors-change" class="fullscreen none-display">
+        <!--人员调整（编辑）界面-->
+        <div id="changing-ways"></div>
+        <div id="changing-frame"></div>
+    </div>
+    <footer></footer>
+    <script src="dist/footer.js"></script>
+    <script src="dist/setting.js"></script>
+    <script src="dist/md5.js"></script>
+    <script src="dist/localstorage.js"></script>
+    <script src="dist/elector.js"></script>
+    <script src="dist/init.js"></script>
+    <script src="dist/voting.js"></script>
+    <script src="dist/animation.js"></script>
+    <script src="dist/setting.js"></script>
+</body>
+</html>

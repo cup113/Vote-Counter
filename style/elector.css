@@ -1,0 +1,37 @@
+#voting-div {
+	display: inline-block;
+	width: calc(50vw - 32px);
+	vertical-align: top;
+}
+
+.vote-button {
+	display: inline-grid;
+	grid-template-columns: 2rem 3.5rem;
+	grid-template-rows: 1.3rem 1.3rem;
+	grid-template-areas: "id name"
+	                     "id vote";
+	padding: 2px !important;
+}
+
+.vote-button>span:nth-of-type(1) {
+	grid-area: id;
+	font-family: Consolas, numberonly, 'Courier New';
+	align-self: center;
+	font-size: 2rem;
+}
+
+.vote-button>span:nth-of-type(2) {
+	grid-area: name;
+	align-self: center;
+}
+
+.vote-button>span:nth-of-type(3) {
+	grid-area: vote;
+	align-self: center;
+}
+
+.vote-button>span:nth-of-type(3)>span:nth-of-type(3) {
+	font-size: 0.8rem;
+	padding-bottom: 0.2rem;
+	opacity: 0.5;
+}

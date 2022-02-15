@@ -1,0 +1,40 @@
+
+#rank-chart {
+	display: inline-block;
+	vertical-align: top;
+	width: calc(50vw - 32px);
+}
+
+#rank-chart>span {
+	--percent: calc(var(--progress) * 100%);
+	background-image: linear-gradient(90deg, var(--pro-color) 0%, var(--pro-color) var(--percent), transparent var(--percent), transparent 100%);
+	display: inline-block;
+	border: 1px dotted black;
+	margin: 1px;
+	font-size: 1.25rem;
+	width: calc(calc(100% / 3) - 4px);
+	position: relative;
+}
+
+#rank-chart>span>span:nth-of-type(1) {
+	display: inline-block;
+	font-family: Consolas, monospace;
+	width: 2.5em;
+}
+
+#rank-chart>span>span:nth-of-type(1)>span:nth-of-type(2) {
+	font-size: 0.8em;
+	vertical-align: top;
+	opacity: 0.5;
+}
+
+#rank-chart>span>span:nth-of-type(2) {
+	display: inline-block;
+	width: calc(100% - 4.25em - 2px);
+}
+
+#rank-chart>span>span:nth-of-type(3) {
+	display: inline-block;
+	width: 1.75em;
+	font-family: numberonly, Consolas;
+}
