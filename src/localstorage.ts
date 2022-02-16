@@ -112,7 +112,7 @@ export function to_config(obj: Object) {
 	)
 }
 
-if (lgi("VC_version") === null) {
+if (lgi("VC_version") === undefined) {
 	config = new Config("2.0.2 (Dev)", "计票器", 6, 3, [0, 0, 0], ["张三", "李四", "王五"], 1);
 	config.update();
 }
@@ -128,4 +128,5 @@ else {
 };
 
 LC.set_init();
-generate_footer(version, 1, false);
+generate_footer(version, 0, false);
+console.log(localStorage.getItem("VC_about") + "\nVersion: " + localStorage.getItem("VC_version"))

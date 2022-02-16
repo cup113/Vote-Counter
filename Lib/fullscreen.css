@@ -1,0 +1,28 @@
+.fullscreen {
+	position: fixed;
+	box-sizing: border-box;
+	width: 80vw;
+	height: 80vh;
+	left: 10vw;
+	top: 10vh;
+	background-color: #bbbbbbee;
+	padding: 0 5vw;
+	overflow-y: auto;
+	font-size: 1.5rem;
+}
+
+.close-icon-fullscreen {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	border-radius: 2px;
+	background-color: #FF0000;
+}
+
+.close-icon-fullscreen:hover {
+	background-color: #DD4444;
+}
+
+.close-icon-fullscreen:active {
+	background-color: #BB8888;
+}

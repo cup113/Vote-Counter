@@ -1,0 +1,50 @@
+Vote Counter (ALL code or resource EXCEPT declare specially)
+
+MIT License
+Copyright (c) 2021-2022, Jason M. Li
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+----------
+
+src/md5.ts
+
+CC BY-NC
+Original author: _sands / https://www.jianshu.com/u/f791e23b007b
+Linked by: https://www.jianshu.com/p/2e7aae6289e7
+Modified by: Jason M. Li
+
+----------
+
+img/close.svg & img/settings.svg
+
+Free icon-icons license (https://icon-icons.com/license)
+This license allows you to use for free any of icon-icons contents for your projects as long as they are attributed to their author in the definitive project.
+Where you can use icon-icons contents:
+- Website.
+- Software, applications, mobile, Multimedia
+- Printed and digital media (magazines, newspapers, books, cards, labels, CD, television, video, e-mail).
+- Advertisement and promotional items.
+- Presentation of products and public events.
+What you CAN DO:
+- You have the non-exclusive, non-transferable, non-sublicensable right to use the licensed material an unlimited number of times in any and all media for the commercial or personal purposes listed above.
+- You may alter and create derivative works.
+- You can use icon-icons Contents during the rights period world wide.
+- Share icon-icons content including direct link to download page.
+What you CANNOT DO:
+- Sublicense, sell or rent any contents (or a modified version of them).
+- Include icon-icons Contents in an online or offline database.
+- Offering icon-icons Contents designs (or modified icon-icons Contents versions) for download.
+
+img/close.svg
+
+Linked by https://icon-icons.com/icon/Cross-close-delete-remove/82985
+Modified by Jasom M. Li
+
+img/settings.svg
+
+Linked by https://icon-icons.com/icon/settings-preferences-options/114848

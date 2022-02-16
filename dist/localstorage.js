@@ -102,7 +102,7 @@ var LC;
         return new Config(obj.version, obj.title, obj.mainSepLine, obj.secSepLine, obj.votes, obj.electorNames, obj.voteSingle);
     }
     LC.to_config = to_config;
-    if (lgi("VC_version") === null) {
+    if (lgi("VC_version") === undefined) {
         LC.config = new Config("2.0.2 (Dev)", "计票器", 6, 3, [0, 0, 0], ["张三", "李四", "王五"], 1);
         LC.config.update();
     }
@@ -117,3 +117,4 @@ var LC;
 ;
 LC.set_init();
 generate_footer(version, 1, false);
+console.log(localStorage.getItem("VC_about") + "\nVersion: " + localStorage.getItem("VC_version"));
