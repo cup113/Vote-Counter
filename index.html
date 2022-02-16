@@ -62,6 +62,10 @@
             <input type="number" min="0" step="1" id="secSepLineSet" placeholder="" title="此名次及以上更好，可与主分割线重合">
         </p>
         <p>
+            <span>投票区宽度: </span>
+            <input type="range" id="resize-width" max="1000" onpointermove="$(':root').css({'--chart-width': (75 - parseInt($('#resize-width').val()) / 20).toFixed(1) + 'vw'})">
+        </p>
+        <p>
             <button class="button-d" onclick="show_storage();">查看本地数据</button>
             <button class="button-d" onclick="import_storage();">导入到本地数据</button>
             <button class="button-d" onclick="reset_votes();">重置进度</button>
@@ -75,7 +79,11 @@
     </div>
     <div id="electors-change" class="fullscreen none-display">
         <!--人员调整（编辑）界面-->
-        <div id="changing-ways"></div>
+        <div id="changing-ways">
+            <button class="button-d">编辑人员</button>
+            <button class="button-d">增添人员</button>
+            <button class="button-d">删除人员</button>
+        </div>
         <div id="changing-frame"></div>
     </div>
     <footer></footer>

@@ -1,5 +1,6 @@
 :root {
     font-size: 16px;
+    --chart-width: 50vw;
 }
 
 #title-div {
@@ -7,6 +8,20 @@
     text-align: center;
     font-size: 3rem;
     font-weight: bold;
+}
+
+#voting-div {
+	display: inline-block;
+	width: calc(calc(100vw - var(--chart-width)) - 48px);
+	vertical-align: top;
+    border: 1px dotted #00000044;
+}
+
+#rank-chart {
+	display: inline-block;
+	vertical-align: top;
+	width: calc(var(--chart-width) - 24px);
+    border: 1px dotted #00000044;
 }
 
 #vote-tips {

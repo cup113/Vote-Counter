@@ -14,3 +14,7 @@
 	resize: vertical;
 	min-height: 5em;
 }
+
+#resize-width {
+	width: 20rem;
+}

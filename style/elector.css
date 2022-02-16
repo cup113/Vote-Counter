@@ -1,9 +1,3 @@
-#voting-div {
-	display: inline-block;
-	width: calc(50vw - 32px);
-	vertical-align: top;
-}
-
 .vote-button {
 	display: inline-grid;
 	grid-template-columns: 2rem 3.5rem;

@@ -3,7 +3,7 @@
  */
 /// <reference path="./md5.ts"/>
 /// <reference path="./footer.ts"/>
-var version = "2.0.4 (Dev)";
+var version = "2.1.1 (Dev)";
 function lgi(key) { return localStorage.getItem(key); }
 var LC;
 (function (LC) {
@@ -116,5 +116,5 @@ var LC;
 })(LC || (LC = {}));
 ;
 LC.set_init();
-generate_footer(version, 1, false);
+generate_footer(version, 0, false);
 console.log(localStorage.getItem("VC_about") + "\nVersion: " + localStorage.getItem("VC_version"));
