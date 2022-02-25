@@ -1,5 +1,5 @@
 /// <reference path="./localstorage.ts"/>
-
+/// <reference path="./elector.ts"/>
 
 function click_setting_icon() {
 	var $settingsDiv = $("#settings-div");
@@ -15,7 +15,15 @@ function start_change_electors() {
 
 function show_storage() {
 	if ($("#storage-showing-temp").length !== 0) return;
-	var storage: string = JSON.stringify(localStorage.getItem("ReciteHelper")),
+	var storage: string = JSON.stringify({
+		"version": LC.config.version,
+		"title": LC.config.title,
+		"mainSepLine": LC.config.mainSepLine,
+		"secSepLine": LC.config.secSepLine,
+		"votes": LC.config.votes,
+		"electorNames": LC.config.electorNames,
+		"voteSingle": LC.config.voteSingle
+	}),
 	$showingDiv: JQuery<HTMLElement> = $("<div></div>")
 	.css({"position": "fixed", "box-sizing": "border-box", "width": "70vw", "height": "70vh", "top": "15vh", "left": "15vw", "background-color": "#eeeeee", "padding": "5rem 1rem 1rem 1rem", "overflow-y": "auto"})
 	.attr({"id": "storage-showing-temp"})
@@ -35,7 +43,7 @@ function import_storage() {
 	.append($(`<div><img src="../img/close.svg"></div>`).attr({"class": "button-d close-icon-fullscreen"}).on('click', function () {$("#storage-import-temp").remove();}))
 	.append($("<p>请输入你的存档:</p>"))
 	.append($("<textarea></textarea>").css({"resize": "vertical", "min-height": "40vh", "display": "block", "width": "100%"}))
-	.append($("<button class='button-d'>确定导入</button>").on('click', function () { LC.config = LC.to_config(JSON.parse($("#storage-import-temp>textarea").val() as string)); LC.set_init(); $("#storage-import-temp").remove(); }))
+	.append($("<button class='button-d'>确定导入</button>").on('click', function () { LC.config = LC.to_config(JSON.parse($("#storage-import-temp>textarea").val() as string)); LC.set_init(); $("#storage-import-temp").remove(); LC.config.update()}))
 	.appendTo($("body"));
 }
 
@@ -58,21 +66,42 @@ function submit_setting(save: boolean = false) {
 		voteSingle: LC.config.voteSingle
 	});
 	if (config_new.title !== LC.config.title) {
-		LC.config.set_title();
+		LC.config.set_title(config_new.title);
 		if (save) LC.config.update_title();
 	}
 	if (config_new.mainSepLine !== LC.config.mainSepLine) {
-		LC.config.set_mainSepLine();
+		LC.config.set_mainSepLine(config_new.mainSepLine);
 		if (save) LC.config.update_basic();
 	}
 	if (config_new.secSepLine !== LC.config.secSepLine) {
-		LC.config.set_secSepLine();
+		LC.config.set_secSepLine(config_new.secSepLine);
 		if (save) LC.config.update_basic();
 	}
 	if (!is_same(config_new.electorNames, LC.config.electorNames)) {
-		LC.config.set_electorNames();
+		LC.config.set_electorNames(config_new.electorNames);
 		if (save) LC.config.update_basic();
+		Ele.electors = [];
+		LC.config.votes = [];
+		$("#vote-buttons").empty(),
+		$("#rank-chart").empty();
+		let $voteButtons_temp = $("#vote-buttons"),
+		$rankChart_temp = $("#rank-chart");
+		for (let i in config_new.electorNames) {
+			let electorName = config_new.electorNames[i],
+			new_elector = new Ele.Elector(parseInt(i) + 1, electorName, 0);
+			new_elector.voteButton.appendTo($voteButtons_temp);
+			new_elector.voteButton.on("click", {id: new_elector.get_id()}, function (event) {
+				Ele.electors[event.data.id - 1].add_vote();
+			});
+			new_elector.rankSpan.appendTo($rankChart_temp);
+			Ele.electors.push(new_elector);
+			LC.config.votes.push(0);
+			if (parseInt(i) === config_new.electorNames.length - 1) {
+				new_elector.set_vote(new_elector.get_vote());
+			}
+		}
 	}
+	$("#settings-div").addClass("none-display");
 }
 
 function reset_setting() {

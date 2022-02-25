@@ -5,7 +5,7 @@
 /// <reference path="./md5.ts"/>
 /// <reference path="./footer.ts"/>
 
-const version = "2.1.1 (Dev)";
+const version = "2.1.2 (Dev)";
 
 function lgi(key: string): string { return localStorage.getItem(key); }
 
@@ -66,7 +66,7 @@ class Config {
 	}
 	public set_electorNames(electorNames: string[] = this.electorNames) {
 		this.electorNames = electorNames;
-		$("#electors-list").val(this.electorNames.join(","))
+		$("#electors-list").val(this.electorNames.join(","));
 	}
 
 	public update(): void {
@@ -112,8 +112,8 @@ export function to_config(obj: Object) {
 	)
 }
 
-if (lgi("VC_version") === undefined) {
-	config = new Config("2.0.2 (Dev)", "计票器", 6, 3, [0, 0, 0], ["张三", "李四", "王五"], 1);
+if (lgi("VC_version") === null) {
+	config = new Config(version, "计票器", 6, 3, [0, 0, 0], ["张三", "李四", "王五"], 1);
 	config.update();
 }
 
