@@ -4,8 +4,7 @@
 
 /// <reference path="./md5.ts"/>
 /// <reference path="./footer.ts"/>
-
-const version = "2.1.3 (Dev)";
+/// <reference path="./about.ts"/>
 
 function lgi(key: string): string { return localStorage.getItem(key); }
 
@@ -129,4 +128,4 @@ else {
 
 LC.set_init();
 generate_footer(version, 0, false);
-console.log(localStorage.getItem("VC_about") + "\nVersion: " + localStorage.getItem("VC_version"))
+console.log(localStorage.getItem("VC_about") + "\nVersion: " + localStorage.getItem("VC_version"));

@@ -18,3 +18,29 @@
 #resize-width {
 	width: 20rem;
 }
+
+#electors-edit-list>div>span:nth-of-type(1) {
+	display: inline-block;
+	min-width: 2em;
+}
+
+#electors-edit-list>div>span:nth-of-type(2) {
+	display: inline-block;
+	min-width: 3em;
+}
+
+#electors-edit-list>div>span:nth-of-type(3) {
+	display: inline-block;
+	min-width: 5em;
+}
+
+#electors-edit-list>div>span:nth-of-type(4) {
+	display: inline-block;
+	min-width: 3em;
+}
+
+#electors-edit-list>div>button {
+	display: inline-block;
+    height: 2.4em;
+    vertical-align: top;
+}

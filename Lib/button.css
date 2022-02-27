@@ -2,7 +2,7 @@
 	cursor: text;
 	user-select: text;
 	background-color: khaki;
-	padding: 4px 1rem;
+	padding: 0 1rem;
 	border: 1px solid black;
 }
 
@@ -10,7 +10,7 @@
 	background-color: khaki;
 	cursor: pointer;
 	user-select: none;
-	padding: 4px 1rem;
+	padding: 0 1rem;
 	border: 2px solid black;
 }
 

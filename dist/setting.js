@@ -105,6 +105,21 @@ function reset_setting() {
     $("#secSepLineSet").val(3);
     $("#electors-list").val("张三,李四,王五");
 }
+function remove_elector(elector) {
+    var eid = elector.get_id();
+    elector.rankSpan.remove();
+    elector.voteButton.remove();
+    delete Ele.electors[eid - 1];
+    for (var _i = 0, _a = Ele.electors; _i < _a.length; _i++) {
+        var e = _a[_i];
+        if (e.get_id() >= eid) {
+            e.set_id(e.get_id() - 1);
+            e.voteButton.on("click", { id: e.get_id() }, function (event) {
+                Ele.electors[event.data.id - 1].add_vote();
+            });
+        }
+    }
+}
 function start_electors_edit() {
     var $changingWays = $("#changing-ways"), $changingFrame = $("#changing-frame");
     if ($changingWays.attr("active") === "1")
@@ -116,13 +131,15 @@ function start_electors_edit() {
     for (var i in Ele.electors) {
         var e = Ele.electors[i], pi = parseInt(i);
         $("<div></div>").attr({ "index": i })
-            .append($("<span></span>").text(e.get_id()))
+            .append($("<span></span>").text(e.get_id().toString()))
             .append($("<span></span>").text(e.get_rank().toString() + Ele.ordinal_suffix(e.get_rank())))
-            .append($("<span></span>").attr({ "class": "button-i" }).text(e.get_name()))
-            .append($("<span></span>").attr({ "class": "button-i" }).text(e.get_vote()))
-            .append($("<button></button>").attr({ "class": "button-d" }).html("-"))
+            .append($("<span></span>").attr({ "class": "button-i", "id": "changing-frame-edit-id-" + e.get_id().toString(), "contentEditable": "true" }).text(e.get_name()).on('input', { elector: e }, function (event) { event.data.elector.set_name($("#changing-frame-edit-" + event.data.elector.get_id().toString()).text()); }))
+            .append($("<span></span>").attr({ "class": "button-i", "id": "changing-frame-edit-vote-" + e.get_id().toString(), "contentEditable": "true" }).text(e.get_vote()).on('input', { elector: e }, function (event) { var voteNew = parseInt($("#changing-frame-edit-frame" + event.data.elector.get_id().toString()).text()); if (!isNaN(voteNew))
+            event.data.elector.set_vote(voteNew); }))
+            .append($("<button></button>").attr({ "class": "button-d" }).html("-").on('click', { elector: e }, function (event) { remove_elector(event.data.elector); }))
             .appendTo($editList);
     }
+    $("<button></button>").attr({ "class": "button-d" }).text("+").appendTo($changingFrame);
     $("<button></button>").attr({ "class": "button-d" }).text("批量删除").appendTo($changingFrame);
     $("<button></button>").attr({ "class": "button-d" }).text("交换位置").appendTo($changingFrame);
 }

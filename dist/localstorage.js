@@ -3,7 +3,7 @@
  */
 /// <reference path="./md5.ts"/>
 /// <reference path="./footer.ts"/>
-var version = "2.1.3 (Dev)";
+/// <reference path="./about.ts"/>
 function lgi(key) { return localStorage.getItem(key); }
 var LC;
 (function (LC) {
