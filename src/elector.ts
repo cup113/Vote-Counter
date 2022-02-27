@@ -2,15 +2,6 @@
  * @file 创建选举人类及方法
  */
 /// <reference path = "./localstorage.ts" />
-function ordinal_suffix(cardinal: number): string {
-	var suffix: string = "",
-	judgeKey = cardinal % 100;
-	if ((judgeKey >= 11 && judgeKey <= 20) || judgeKey % 10 >= 4 || judgeKey % 10 == 0) suffix = "th";
-	else if (judgeKey % 10 === 1) suffix = "st";
-	else if (judgeKey % 10 === 2) suffix = "nd";
-	else if (judgeKey % 10 === 3) suffix = "rd";
-	return suffix;
-}
 
 /**
  * @brief 使用归并排序法排序列表（倒序，大的在前）
@@ -67,6 +58,15 @@ class Vector2d {
 }
 
 module Ele {
+export function ordinal_suffix(cardinal: number): string {
+	var suffix: string = "",
+	judgeKey = cardinal % 100;
+	if ((judgeKey >= 11 && judgeKey <= 20) || judgeKey % 10 >= 4 || judgeKey % 10 == 0) suffix = "th";
+	else if (judgeKey % 10 === 1) suffix = "st";
+	else if (judgeKey % 10 === 2) suffix = "nd";
+	else if (judgeKey % 10 === 3) suffix = "rd";
+	return suffix;
+}
 export var electors: Elector[] = [];
 export var rankAnimationPlaying: boolean = true; // 是否正在处理动画
 export class Elector {

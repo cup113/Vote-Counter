@@ -5,7 +5,7 @@
 /// <reference path="./md5.ts"/>
 /// <reference path="./footer.ts"/>
 
-const version = "2.1.2 (Dev)";
+const version = "2.1.3 (Dev)";
 
 function lgi(key: string): string { return localStorage.getItem(key); }
 

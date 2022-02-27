@@ -2,15 +2,11 @@
 /// <reference path="./elector.ts"/>
 
 function click_setting_icon() {
-	var $settingsDiv = $("#settings-div");
-	if ($settingsDiv.hasClass("none-display")) { $settingsDiv.toggleClass("none-display"); }
-	else { $settingsDiv.addClass("none-display"); }
+	$("#settings-div").toggleClass("none-display")
 }
 
 function start_change_electors() {
-	var $electorsChanging = $("#electors-change");
-	if ($electorsChanging.hasClass("none-display")) { $electorsChanging.toggleClass("none-display"); }
-	else { $electorsChanging.addClass("none-display"); }
+	$("#electors-change").toggleClass("none-display")
 }
 
 function show_storage() {
@@ -109,4 +105,28 @@ function reset_setting() {
 	$("#mainSepLineSet").val(6);
 	$("#secSepLineSet").val(3);
 	$("#electors-list").val("张三,李四,王五");
+}
+
+function start_electors_edit() {
+	var $changingWays = $("#changing-ways"),
+	$changingFrame = $("#changing-frame");
+	if ($changingWays.attr("active") === "1") return;
+	$changingWays.children().removeClass("active");
+	$("#changing-ways>button:nth-of-type(1)").addClass("active");
+	$changingWays.attr({"active": "1"});
+	var $editList = $("<div></div>").attr({"id": "electors-edit-list"}).appendTo($changingFrame);
+	for (let i in Ele.electors) {
+		let e = Ele.electors[i],
+		pi = parseInt(i);
+		$("<div></div>").attr({"index": i})
+		.append($("<span></span>").text(e.get_id()))
+		.append($("<span></span>").text(e.get_rank().toString() + Ele.ordinal_suffix(e.get_rank())))
+		.append($("<span></span>").attr({"class": "button-i"}).text(e.get_name()))
+		.append($("<span></span>").attr({"class": "button-i"}).text(e.get_vote()))
+		.append($("<button></button>").attr({"class": "button-d"}).html("-"))
+		.appendTo($editList);
+	}
+	$("<button></button>").attr({"class": "button-d"}).text("+").appendTo($changingFrame);
+	$("<button></button>").attr({"class": "button-d"}).text("批量删除").appendTo($changingFrame);
+	$("<button></button>").attr({"class": "button-d"}).text("交换位置").appendTo($changingFrame);
 }

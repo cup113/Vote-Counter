@@ -39,7 +39,6 @@
     ><div id="rank-chart">
         <!--图表排名区-->
     </div>
-    
     <div id="settings-div" class="fullscreen none-display">
         <!--设置-->
         <div class="button-d close-icon-fullscreen" onclick="click_setting_icon();">
@@ -79,10 +78,13 @@
     </div>
     <div id="electors-change" class="fullscreen none-display">
         <!--人员调整（编辑）界面-->
-        <div id="changing-ways">
-            <button class="button-d">编辑人员</button>
-            <button class="button-d">批量添加人员</button>
-            <button class="button-d">批量删除人员</button>
+        <div class="button-d close-icon-fullscreen" onclick="$('#electors-change').addClass('none-display');">
+			<img src="img/close.svg">
+		</div>
+        <div id="changing-ways" active="0">
+            <button class="button-d" onclick="start_electors_edit();">编辑人员</button
+            ><button class="button-d">批量添加人员</button
+            ><button class="button-d">批量删除人员</button>
         </div>
         <div id="changing-frame"></div>
     </div>

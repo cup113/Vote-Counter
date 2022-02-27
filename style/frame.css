@@ -42,6 +42,17 @@
     border-right: 1px solid black;
 }
 
-#third-line {
-    vertical-align: top;
+#changing-ways {
+    width: 100%;
+    margin-top: 60px;
+}
+
+#changing-ways>.button-d {
+    font-size: 2rem;
+    margin: 0;
+}
+
+#changing-frame {
+    width: 100%;
+    border: 3px solid gray;
 }
