@@ -5,6 +5,7 @@
 /// <reference path="./md5.ts"/>
 /// <reference path="./footer.ts"/>
 /// <reference path="./about.ts"/>
+/// <reference path="./version.ts"/>
 
 function lgi(key: string): string { return localStorage.getItem(key); }
 
@@ -111,6 +112,8 @@ export function to_config(obj: Object) {
 	)
 }
 
+var version_temp: Ver.Version = Ver.to_version(version);
+
 if (lgi("VC_version") === null) {
 	config = new Config(version, "计票器", 6, 3, [0, 0, 0], ["张三", "李四", "王五"], 1);
 	config.update();
@@ -127,5 +130,5 @@ else {
 };
 
 LC.set_init();
-generate_footer(version, 0, false);
+generate_footer(version, "https://github.com/cup113/Vote-Counter/", true);
 console.log(localStorage.getItem("VC_about") + "\nVersion: " + localStorage.getItem("VC_version"));

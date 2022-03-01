@@ -6,16 +6,9 @@ footer {
 	z-index: 1;
 }
 
-footer>div:nth-of-type(1) {
+footer>div {
 	display: inline-block;
-	width: calc(50vw - 48px);
-	border-right: 1px solid #555555;
-	margin-right: 16px;
-}
-
-footer>div:nth-of-type(2) {
-	display: inline-block;
-	width: calc(50vw - 48px);
+	width: 100%;
 }
 
 footer>div>p {

@@ -4,6 +4,7 @@
 /// <reference path="./md5.ts"/>
 /// <reference path="./footer.ts"/>
 /// <reference path="./about.ts"/>
+/// <reference path="./version.ts"/>
 function lgi(key) { return localStorage.getItem(key); }
 var LC;
 (function (LC) {
@@ -102,6 +103,7 @@ var LC;
         return new Config(obj.version, obj.title, obj.mainSepLine, obj.secSepLine, obj.votes, obj.electorNames, obj.voteSingle);
     }
     LC.to_config = to_config;
+    var version_temp = Ver.to_version(version);
     if (lgi("VC_version") === null) {
         LC.config = new Config(version, "计票器", 6, 3, [0, 0, 0], ["张三", "李四", "王五"], 1);
         LC.config.update();
@@ -116,5 +118,5 @@ var LC;
 })(LC || (LC = {}));
 ;
 LC.set_init();
-generate_footer(version, 0, false);
+generate_footer(version, "https://github.com/cup113/Vote-Counter/", true);
 console.log(localStorage.getItem("VC_about") + "\nVersion: " + localStorage.getItem("VC_version"));
