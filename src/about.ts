@@ -1,7 +1,7 @@
 /**
- * @version 2.1.5-Dev
+ * @version 2.1.6-Dev
  * @author Jason M. Li
  * @copyright @see "license"
  */
 
-const version = "2.1.5 (Dev)";
+const version = "2.1.6 (Dev)";

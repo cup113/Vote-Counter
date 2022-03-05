@@ -16,7 +16,7 @@ var Ver;
             this.stage = _stage;
         }
         Version.prototype.to_string = function () {
-            return "".concat(this.first, ".").concat(this.second, ".").concat(this.third).concat((this.fourth == -1) ? ("") : ("." + this.fourth.toString()), " (").concat(this.stage, ")");
+            return "".concat(this.first, ".").concat(this.second, ".").concat(this.third).concat((this.fourth == -1) ? ("") : ("." + this.fourth.toString())).concat((this.stage.length > 0) ? "(" + this.stage + ")" : "", ")");
         };
         return Version;
     }());
@@ -65,7 +65,7 @@ var Ver;
     }
     Ver.version_earlier = version_earlier;
     function to_version(verString) {
-        var strlist = verString.split(" "), version_number = strlist[0], version_stage = strlist[1].slice(1, strlist[1].length - 1), vnlist = version_number.split("."), vn_first = parseInt(vnlist[0]), vn_second = parseInt(vnlist[1]), vn_third = parseInt(vnlist[2]), vn_fourth = (vnlist.length == 4) ? parseInt(vnlist[3]) : (-1), ver = new Version(vn_first, vn_second, vn_third, vn_fourth, version_stage);
+        var strlist = verString.split(" "), version_number = strlist[0], version_stage = (strlist.length >= 1) ? strlist[1].slice(1, strlist[1].length - 1) : "", vnlist = version_number.split("."), vn_first = parseInt(vnlist[0]), vn_second = (vnlist.length >= 2) ? parseInt(vnlist[1]) : 0, vn_third = (vnlist.length >= 3) ? parseInt(vnlist[2]) : 0, vn_fourth = (vnlist.length >= 4) ? parseInt(vnlist[3]) : (-1), ver = new Version(vn_first, vn_second, vn_third, vn_fourth, version_stage);
         return ver;
     }
     Ver.to_version = to_version;

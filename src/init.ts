@@ -15,6 +15,6 @@ for (let i in LC.config.electorNames) {
 	new_elector.rankSpan.appendTo($rankChart);
 	Ele.electors.push(new_elector);
 	if (parseInt(i) === LC.config.electorNames.length - 1) {
-		new_elector.set_vote(new_elector.get_vote());
+		new_elector.set_vote();
 	}
 }

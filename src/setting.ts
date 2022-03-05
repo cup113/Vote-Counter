@@ -93,7 +93,7 @@ function submit_setting(save: boolean = false) {
 			Ele.electors.push(new_elector);
 			LC.config.votes.push(0);
 			if (parseInt(i) === config_new.electorNames.length - 1) {
-				new_elector.set_vote(new_elector.get_vote());
+				new_elector.set_vote();
 			}
 		}
 	}
@@ -108,11 +108,12 @@ function reset_setting() {
 }
 
 function remove_elector(elector: Ele.Elector) {
+	if (Ele.electors.length <= 1) return;
 	var eid = elector.get_id();
 	elector.rankSpan.remove();
 	elector.voteButton.remove();
 	delete Ele.electors[eid - 1];
-	for (var e of Ele.electors) {
+	for (let e of Ele.electors) {
 		if (e.get_id() >= eid) {
 			e.set_id(e.get_id() - 1);
 			e.voteButton.on("click", {id: e.get_id()}, function (event) {
@@ -120,6 +121,28 @@ function remove_elector(elector: Ele.Elector) {
 			});
 		}
 	}
+	Ele.electors[0].set_vote();
+}
+
+function add_elector(afterid: number) {
+	if (isNaN(afterid) || afterid > Ele.electors.length || afterid < 0) return;
+	var newEle = new Ele.Elector(afterid + 1, "---", 0),
+	$voteButtons = $("#vote-buttons"),
+	$rankChart = $("#rank-chart");
+	Ele.electors.splice(afterid, 0, newEle);
+	newEle.voteButton.appendTo($voteButtons).on("click", {id: newEle.get_id()}, function (event) {
+		Ele.electors[event.data.id - 1].add_vote();
+	});
+	newEle.rankSpan.appendTo($rankChart);
+	for (let e of Ele.electors) {
+		if (e.get_id() > afterid) {
+			e.set_id(e.get_id() + 1);
+			e.voteButton.on("click", {id: e.get_id()}, function (event) {
+				Ele.electors[event.data.id - 1].add_vote();
+			});
+		}
+	}
+	Ele.electors[0].set_vote();
 }
 
 function start_electors_edit() {
@@ -141,7 +164,9 @@ function start_electors_edit() {
 		.append($("<button></button>").attr({"class": "button-d"}).html("-").on('click', {elector: e}, function (event) {remove_elector(event.data.elector);}))
 		.appendTo($editList);
 	}
-	$("<button></button>").attr({"class": "button-d"}).text("+").appendTo($changingFrame);
-	$("<button></button>").attr({"class": "button-d"}).text("批量删除").appendTo($changingFrame);
-	$("<button></button>").attr({"class": "button-d"}).text("交换位置").appendTo($changingFrame);
+	$("<button></button>").attr({"class": "button-d"}).text("插入").appendTo($changingFrame).on('click', function () {
+		add_elector(parseInt($("#afterid").text()) - 1);
+	});
+	$("<span>在此序号之前:</span>").appendTo($changingFrame);
+	$("<span></span>").attr({"contentEditable": "true", "class": "button-i", "id": "afterid"}).text(Ele.electors.length.toString()).appendTo($changingFrame);
 }

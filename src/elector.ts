@@ -111,7 +111,7 @@ export class Elector {
 	/**
 	 * @param update_at_once	是否立即刷新排名
 	 */
-	public set_vote(vote: number, update_at_once: boolean = true): void {
+	public set_vote(vote: number = this.vote, update_at_once: boolean = true): void {
 		this.vote = vote;
 		LC.config.votes[this.get_id() - 1] = vote;
 		this.voteButton[0].children[2].children[0].textContent = vote.toString();

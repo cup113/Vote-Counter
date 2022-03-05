@@ -111,6 +111,7 @@ var Ele;
          * @param update_at_once	是否立即刷新排名
          */
         Elector.prototype.set_vote = function (vote, update_at_once) {
+            if (vote === void 0) { vote = this.vote; }
             if (update_at_once === void 0) { update_at_once = true; }
             this.vote = vote;
             LC.config.votes[this.get_id() - 1] = vote;

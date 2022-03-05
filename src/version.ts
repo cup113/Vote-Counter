@@ -18,7 +18,7 @@ export class Version {
 		this.stage = _stage;
 	}
 	public to_string(): string {
-		return `${this.first}.${this.second}.${this.third}${(this.fourth == -1)? (""): ("." + this.fourth.toString())} (${this.stage})`;
+		return `${this.first}.${this.second}.${this.third}${(this.fourth == -1)? (""): ("." + this.fourth.toString())}${(this.stage.length > 0)? "(" + this.stage + ")": ""})`;
 	}
 };
 
@@ -49,12 +49,12 @@ export function version_earlier(ver1: Version, ver2: Version, includeEqual: bool
 export function to_version(verString: string): Version {
 	var strlist = verString.split(" "),
 	version_number = strlist[0],
-	version_stage = strlist[1].slice(1, strlist[1].length - 1),
+	version_stage = (strlist.length >= 1)? strlist[1].slice(1, strlist[1].length - 1): "",
 	vnlist = version_number.split("."),
 	vn_first = parseInt(vnlist[0]),
-	vn_second = parseInt(vnlist[1]),
-	vn_third = parseInt(vnlist[2]),
-	vn_fourth = (vnlist.length == 4)? parseInt(vnlist[3]): (-1),
+	vn_second = (vnlist.length >= 2)? parseInt(vnlist[1]): 0,
+	vn_third = (vnlist.length >= 3)? parseInt(vnlist[2]): 0,
+	vn_fourth = (vnlist.length >= 4)? parseInt(vnlist[3]): (-1),
 	ver = new Version(vn_first, vn_second, vn_third, vn_fourth, version_stage);
 	return ver;
 }
