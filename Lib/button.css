@@ -7,24 +7,29 @@
 }
 
 .button-d {
-	background-color: khaki;
+	background-color: #f0e68c;
 	cursor: pointer;
 	user-select: none;
 	padding: 0 1rem;
 	border: 2px solid black;
 }
 
-.button-d.active {
-	background-color: aqua;
+.button-d:hover {
+	background-color: #ddff99;
+}
+
+.button-d:active {
+	background-color: #bbff99;
+	border-top-color: gray;
+	border-left-color: gray;
 }
 
 .button-d.close-icon-fullscreen {
 	padding: 0;
 }
 
-.button-d:active {
-	border-top-color: gray;
-	border-left-color: gray;
+.button-d.active {
+	background-color: cyan;
 }
 
 .none-display {

@@ -114,7 +114,7 @@ function remove_elector(elector) {
     delete Ele.electors[eid - 1];
     for (var _i = 0, _a = Ele.electors; _i < _a.length; _i++) {
         var e = _a[_i];
-        if (e.get_id() >= eid) {
+        if (e.get_id() > eid) {
             e.set_id(e.get_id() - 1);
             e.voteButton.on("click", { id: e.get_id() }, function (event) {
                 Ele.electors[event.data.id - 1].add_vote();
@@ -142,6 +142,9 @@ function add_elector(afterid) {
         }
     }
     Ele.electors[0].set_vote();
+    LC.config.update_basic();
+    LC.config.update_votes();
+    LC.config.votes.splice(afterid - 1, 0, 0);
 }
 function start_electors_edit() {
     var $changingWays = $("#changing-ways"), $changingFrame = $("#changing-frame");
@@ -150,7 +153,7 @@ function start_electors_edit() {
     $changingWays.children().removeClass("active");
     $("#changing-ways>button:nth-of-type(1)").addClass("active");
     $changingWays.attr({ "active": "1" });
-    var $editList = $("<div></div>").attr({ "id": "electors-edit-list" }).appendTo($changingFrame);
+    var $editList = $("<div></div>").attr({ "id": "electors-edit-list" }).appendTo($changingFrame.html(''));
     for (var i in Ele.electors) {
         var e = Ele.electors[i], pi = parseInt(i);
         $("<div></div>").attr({ "index": i })
@@ -163,8 +166,48 @@ function start_electors_edit() {
             .appendTo($editList);
     }
     $("<button></button>").attr({ "class": "button-d" }).text("插入").appendTo($changingFrame).on('click', function () {
-        add_elector(parseInt($("#afterid").text()) - 1);
+        add_elector(parseInt($("#afterid").text()));
     });
-    $("<span>在此序号之前:</span>").appendTo($changingFrame);
+    $("<span>在此序号之后:</span>").appendTo($changingFrame);
     $("<span></span>").attr({ "contentEditable": "true", "class": "button-i", "id": "afterid" }).text(Ele.electors.length.toString()).appendTo($changingFrame);
+}
+function start_electors_append() {
+    var $changingWays = $("#changing-ways"), $changingFrame = $("#changing-frame");
+    if ($changingWays.attr("active") === "2")
+        return;
+    $changingWays.children().removeClass("active");
+    $("#changing-ways>button:nth-of-type(2)").addClass("active");
+    $changingWays.attr({ "active": "2" });
+    $changingFrame.html('').append($("<textarea></textarea>").attr({ "id": "electors-append" }).css({ "width": "100%", "min-height": "2em", "resize": "vertical" }))
+        .append($("<button></button>").text("确定").addClass("button-d").on('click', function () {
+        var neles = $("#electors-append").val().replace("\r", "").replace("\n", ",").split(",");
+        for (var i in neles) {
+            add_elector(Ele.electors.length);
+            Ele.electors[Ele.electors.length - 1].set_name(neles[i]);
+        }
+    }));
+}
+function start_electors_remove() {
+    var $changingWays = $("#changing-ways"), $changingFrame = $("#changing-frame");
+    if ($changingWays.attr("active") === "3")
+        return;
+    $changingWays.children().removeClass("active");
+    $("#changing-ways>button:nth-of-type(3)").addClass("active");
+    $changingWays.attr({ "active": "3" });
+    $changingFrame.html('').append($("<div><span>删除第n名及以后: </span><input type='number' id='electors-remove-nlast'></div>").append($("<button>确定</button>").attr({ "class": "button-d" }).on('click', function () {
+        var n = parseInt($("#electors-remove-nlast").val());
+        for (var i in Ele.electors) {
+            var e = Ele.electors[i];
+            if (e.get_rank() >= n)
+                remove_elector(e);
+        }
+    })))
+        .append($("<div><span>删除第n名及以前: </span><input type='number' id='electors-remove-nfirst'></div>").append($("<button>确定</button>").attr({ "class": "button-d" }).on('click', function () {
+        var n = parseInt($("#electors-remove-nfirst").val());
+        for (var i in Ele.electors) {
+            var e = Ele.electors[i];
+            if (e.get_rank() <= n)
+                remove_elector(e);
+        }
+    })));
 }

@@ -5,7 +5,7 @@
 /**
  * @brief 使用归并排序法排序列表（倒序，大的在前）
  * @param arr 数组
- * @param func_bigger	用于比较arg1是否大于（或等于）arg2的函数
+ * @param func_greater	用于比较arg1是否大于（或等于）arg2的函数
  */
 function sort(arr, func_greater) {
     if (func_greater === void 0) { func_greater = function (a, b) { return (a >= b); }; }
