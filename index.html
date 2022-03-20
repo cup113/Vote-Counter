@@ -78,7 +78,7 @@
     </div>
     <div id="electors-change" class="fullscreen none-display">
         <!--人员调整（编辑）界面-->
-        <div class="button-d close-icon-fullscreen" onclick="$('#electors-change').addClass('none-display');">
+        <div class="button-d close-icon-fullscreen" onclick="$('#electors-change').addClass('none-display');$('#changing-ways').attr({'active': '0'});$('#changing-frame').html('')">
 			<img src="img/close.svg">
 		</div>
         <div id="changing-ways" active="0">

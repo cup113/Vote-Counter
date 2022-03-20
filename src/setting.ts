@@ -112,7 +112,7 @@ function remove_elector(elector: Ele.Elector) {
 	var eid = elector.get_id();
 	elector.rankSpan.remove();
 	elector.voteButton.remove();
-	delete Ele.electors[eid - 1];
+	Ele.electors.splice(eid - 1, 1);
 	for (let e of Ele.electors) {
 		if (e.get_id() > eid) {
 			e.set_id(e.get_id() - 1);
@@ -162,13 +162,15 @@ function start_electors_edit() {
 		$("<div></div>").attr({"index": i})
 		.append($("<span></span>").text(e.get_id().toString()))
 		.append($("<span></span>").text(e.get_rank().toString() + Ele.ordinal_suffix(e.get_rank())))
-		.append($("<span></span>").attr({"class": "button-i", "id": "changing-frame-edit-id-" + e.get_id().toString(), "contentEditable": "true"}).text(e.get_name()).on('input', {elector: e}, function (event) {event.data.elector.set_name($("#changing-frame-edit-" + event.data.elector.get_id().toString()).text());}))
-		.append($("<span></span>").attr({"class": "button-i", "id": "changing-frame-edit-vote-" + e.get_id().toString(), "contentEditable": "true"}).text(e.get_vote()).on('input', {elector: e}, function (event) {var voteNew = parseInt($("#changing-frame-edit-frame" + event.data.elector.get_id().toString()).text()); if (!isNaN(voteNew)) event.data.elector.set_vote(voteNew);}))
-		.append($("<button></button>").attr({"class": "button-d"}).html("-").on('click', {elector: e}, function (event) {remove_elector(event.data.elector);}))
+		.append($("<span></span>").attr({"class": "button-i", "id": "changing-frame-edit-name-" + e.get_id().toString(), "contentEditable": "true"}).text(e.get_name()).on('input', {elector: e}, function (event) {event.data.elector.set_name($("#changing-frame-edit-name-" + event.data.elector.get_id().toString()).text());}))
+		.append($("<span></span>").attr({"class": "button-i", "id": "changing-frame-edit-vote-" + e.get_id().toString(), "contentEditable": "true"}).text(e.get_vote()).on('input', {elector: e}, function (event) {var voteNew = parseInt($("#changing-frame-edit-vote-" + event.data.elector.get_id().toString()).text()); if (!isNaN(voteNew)) event.data.elector.set_vote(voteNew);}))
+		.append($("<button></button>").attr({"class": "button-d"}).html("-").on('click', {elector: e}, function (event) {remove_elector(event.data.elector); $changingWays.attr("active", '0'); start_electors_edit();}))
 		.appendTo($editList);
 	}
 	$("<button></button>").attr({"class": "button-d"}).text("插入").appendTo($changingFrame).on('click', function () {
 		add_elector(parseInt($("#afterid").text()));
+		$changingWays.attr("active", '0');
+		start_electors_edit();
 	});
 	$("<span>在此序号之后:</span>").appendTo($changingFrame);
 	$("<span></span>").attr({"contentEditable": "true", "class": "button-i", "id": "afterid"}).text(Ele.electors.length.toString()).appendTo($changingFrame);
@@ -181,7 +183,7 @@ function start_electors_append() {
 	$changingWays.children().removeClass("active");
 	$("#changing-ways>button:nth-of-type(2)").addClass("active");
 	$changingWays.attr({"active": "2"});
-	$changingFrame.html('').append($("<textarea></textarea>").attr({"id": "electors-append"}).css({"width": "100%", "min-height": "2em", "resize": "vertical"}))
+	$changingFrame.html('<p>请输入要增加的人员，用英文逗号或换行符分隔</p>').append($("<textarea></textarea>").attr({"id": "electors-append"}).css({"width": "90%", "min-height": "2em", "resize": "vertical"}))
 	.append($("<button></button>").text("确定").addClass("button-d").on('click', function () {
 		var neles = ($("#electors-append").val() as string).replace("\r", "").replace("\n", ",").split(",");
 		for (let i in neles) {

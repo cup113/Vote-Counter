@@ -38,6 +38,7 @@ var LC;
                 $("#titleSet").val(this.title);
             if (isHTMLQuickSet)
                 this.update_title();
+            document.title = "计票器 - " + title;
         };
         Config.prototype.set_voteSingle = function (voteSingle, isHTMLQuickSet) {
             if (voteSingle === void 0) { voteSingle = this.voteSingle; }
@@ -49,7 +50,7 @@ var LC;
                 this.voteSingle = voteSingle;
                 if (!isHTMLQuickSet)
                     $("#voteNum")[0].textContent = this.voteSingle.toString();
-                $("#voteNum").css({ "background-color": "unset" });
+                $("#voteNum").css({ "background-color": "" });
                 if (isHTMLQuickSet)
                     this.update_voteSingle();
             }
@@ -105,7 +106,7 @@ var LC;
     LC.to_config = to_config;
     var version_temp = Ver.to_version(version);
     if (lgi("VC_version") === null) {
-        LC.config = new Config(version, "计票器", 6, 3, [0, 0, 0], ["张三", "李四", "王五"], 1);
+        LC.config = new Config(version, "计票器", 10, 3, [0, 0, 0], ["张三", "李四", "王五"], 1);
         LC.config.update();
     }
     else {
