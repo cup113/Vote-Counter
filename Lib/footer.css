@@ -1,25 +1,20 @@
 footer {
-	background-color: #cccccc;
+	background-color: #eeeeee;
 	width: calc(100vw - 64px);
-	margin-top: 100vh;
+	margin-top: 10vh;
 	padding: 4px 16px;
 	z-index: 1;
 }
 
 footer>div {
-	display: inline-block;
-	width: 100%;
-}
-
-footer>div>p {
-	font-weight: bold;
-	color: #555555;
+	margin: 4px 0;
 }
 
 footer a {
 	color: black;
 	text-decoration: none;
 	background-color: #5555cc22;
+	padding: 0 1em;
 }
 
 footer a:hover {

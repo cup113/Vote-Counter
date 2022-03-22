@@ -119,5 +119,5 @@ var LC;
 })(LC || (LC = {}));
 ;
 LC.set_init();
-generate_footer(version, "https://github.com/cup113/Vote-Counter/", true);
+generate_footer(version, "https://github.com/cup113/Vote-Counter/", false, 2022, 2021);
 console.log(localStorage.getItem("VC_about") + "\nVersion: " + localStorage.getItem("VC_version"));
