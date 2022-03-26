@@ -112,6 +112,8 @@ function remove_elector(elector) {
     elector.rankSpan.remove();
     elector.voteButton.remove();
     Ele.electors.splice(eid - 1, 1);
+    LC.config.votes.splice(eid - 1, 1);
+    LC.config.electorNames.splice(eid - 1, 1);
     for (var _i = 0, _a = Ele.electors; _i < _a.length; _i++) {
         var e = _a[_i];
         if (e.get_id() > eid) {
@@ -122,6 +124,8 @@ function remove_elector(elector) {
         }
     }
     Ele.electors[0].set_vote();
+    LC.config.update_basic();
+    LC.config.update_votes();
 }
 function add_elector(afterid) {
     if (isNaN(afterid) || afterid > Ele.electors.length || afterid < 0)
@@ -132,19 +136,28 @@ function add_elector(afterid) {
         Ele.electors[event.data.id - 1].add_vote();
     });
     newEle.rankSpan.appendTo($rankChart);
+    LC.config.votes.splice(afterid - 1, 0, 0);
+    LC.config.electorNames.splice(afterid - 1, 0, "---");
     for (var _i = 0, _a = Ele.electors; _i < _a.length; _i++) {
         var e = _a[_i];
         if (e.get_id() > afterid) {
             e.set_id(e.get_id() + 1);
-            e.voteButton.on("click", { id: e.get_id() }, function (event) {
+            e.voteButton.off("click")
+                .on("click", { id: e.get_id() }, function (event) {
                 Ele.electors[event.data.id - 1].add_vote();
             });
         }
     }
+    newEle.set_id(afterid + 1);
     Ele.electors[0].set_vote();
     LC.config.update_basic();
     LC.config.update_votes();
-    LC.config.votes.splice(afterid - 1, 0, 0);
+}
+function close_electors_edit() {
+    $('#electors-change').addClass('none-display');
+    $('#changing-ways').attr({ 'active': '0' });
+    $('#changing-frame').html('');
+    $("#changing-ways").children().removeClass('active');
 }
 function start_electors_edit() {
     var $changingWays = $("#changing-ways"), $changingFrame = $("#changing-frame");
@@ -180,7 +193,7 @@ function start_electors_append() {
     $changingWays.children().removeClass("active");
     $("#changing-ways>button:nth-of-type(2)").addClass("active");
     $changingWays.attr({ "active": "2" });
-    $changingFrame.html('<p>请输入要增加的人员，用英文逗号或换行符分隔</p>').append($("<textarea></textarea>").attr({ "id": "electors-append" }).css({ "width": "90%", "min-height": "2em", "resize": "vertical" }))
+    $changingFrame.html('<p>请输入要增加的人员，用英文逗号或换行符分隔。</p>').append($("<textarea></textarea>").attr({ "id": "electors-append" }).css({ "width": "90%", "min-height": "2em", "resize": "vertical" }))
         .append($("<button></button>").text("确定").addClass("button-d").on('click', function () {
         var neles = $("#electors-append").val().replace("\r", "").replace("\n", ",").split(",");
         for (var i in neles) {
@@ -198,18 +211,22 @@ function start_electors_remove() {
     $changingWays.attr({ "active": "3" });
     $changingFrame.html('').append($("<div><span>删除第n名及以后: </span><input type='number' id='electors-remove-nlast'></div>").append($("<button>确定</button>").attr({ "class": "button-d" }).on('click', function () {
         var n = parseInt($("#electors-remove-nlast").val());
-        for (var i in Ele.electors) {
+        for (var i = 0; i < Ele.electors.length; i++) {
             var e = Ele.electors[i];
-            if (e.get_rank() >= n)
+            if (e.get_rank() >= n) {
                 remove_elector(e);
+                i--;
+            }
         }
     })))
         .append($("<div><span>删除第n名及以前: </span><input type='number' id='electors-remove-nfirst'></div>").append($("<button>确定</button>").attr({ "class": "button-d" }).on('click', function () {
         var n = parseInt($("#electors-remove-nfirst").val());
-        for (var i in Ele.electors) {
+        for (var i = 0; i < Ele.electors.length; i++) {
             var e = Ele.electors[i];
-            if (e.get_rank() <= n)
+            if (e.get_rank() <= n) {
                 remove_elector(e);
+                i--;
+            }
         }
     })));
 }

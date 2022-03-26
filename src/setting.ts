@@ -113,6 +113,8 @@ function remove_elector(elector: Ele.Elector) {
 	elector.rankSpan.remove();
 	elector.voteButton.remove();
 	Ele.electors.splice(eid - 1, 1);
+	LC.config.votes.splice(eid - 1, 1);
+	LC.config.electorNames.splice(eid - 1, 1);
 	for (let e of Ele.electors) {
 		if (e.get_id() > eid) {
 			e.set_id(e.get_id() - 1);
@@ -122,6 +124,8 @@ function remove_elector(elector: Ele.Elector) {
 		}
 	}
 	Ele.electors[0].set_vote();
+	LC.config.update_basic();
+	LC.config.update_votes();
 }
 
 function add_elector(afterid: number) {
@@ -134,18 +138,28 @@ function add_elector(afterid: number) {
 		Ele.electors[event.data.id - 1].add_vote();
 	});
 	newEle.rankSpan.appendTo($rankChart);
+	LC.config.votes.splice(afterid - 1, 0, 0);
+	LC.config.electorNames.splice(afterid - 1, 0, "---");
 	for (let e of Ele.electors) {
 		if (e.get_id() > afterid) {
 			e.set_id(e.get_id() + 1);
-			e.voteButton.on("click", {id: e.get_id()}, function (event) {
+			e.voteButton.off("click")
+			.on("click", {id: e.get_id()}, function (event) {
 				Ele.electors[event.data.id - 1].add_vote();
 			});
 		}
 	}
+	newEle.set_id(afterid + 1);
 	Ele.electors[0].set_vote();
 	LC.config.update_basic();
 	LC.config.update_votes();
-	LC.config.votes.splice(afterid - 1, 0, 0);
+}
+
+function close_electors_edit() {
+	$('#electors-change').addClass('none-display');
+	$('#changing-ways').attr({'active': '0'});
+	$('#changing-frame').html('');
+	$("#changing-ways").children().removeClass('active');
 }
 
 function start_electors_edit() {
@@ -183,7 +197,7 @@ function start_electors_append() {
 	$changingWays.children().removeClass("active");
 	$("#changing-ways>button:nth-of-type(2)").addClass("active");
 	$changingWays.attr({"active": "2"});
-	$changingFrame.html('<p>请输入要增加的人员，用英文逗号或换行符分隔</p>').append($("<textarea></textarea>").attr({"id": "electors-append"}).css({"width": "90%", "min-height": "2em", "resize": "vertical"}))
+	$changingFrame.html('<p>请输入要增加的人员，用英文逗号或换行符分隔。</p>').append($("<textarea></textarea>").attr({"id": "electors-append"}).css({"width": "90%", "min-height": "2em", "resize": "vertical"}))
 	.append($("<button></button>").text("确定").addClass("button-d").on('click', function () {
 		var neles = ($("#electors-append").val() as string).replace("\r", "").replace("\n", ",").split(",");
 		for (let i in neles) {
@@ -202,16 +216,22 @@ function start_electors_remove() {
 	$changingWays.attr({"active": "3"});
 	$changingFrame.html('').append($("<div><span>删除第n名及以后: </span><input type='number' id='electors-remove-nlast'></div>").append($("<button>确定</button>").attr({"class": "button-d"}).on('click', function () {
 		var n = parseInt($("#electors-remove-nlast").val() as string);
-		for (let i in Ele.electors) {
+		for (let i=0; i<Ele.electors.length; i++) {
 			let e = Ele.electors[i];
-			if (e.get_rank() >= n) remove_elector(e);
+			if (e.get_rank() >= n) {
+				remove_elector(e);
+				i--;
+			}
 		}
 	})))
 	.append($("<div><span>删除第n名及以前: </span><input type='number' id='electors-remove-nfirst'></div>").append($("<button>确定</button>").attr({"class": "button-d"}).on('click', function () {
 		var n = parseInt($("#electors-remove-nfirst").val() as string);
-		for (let i in Ele.electors) {
+		for (let i=0; i<Ele.electors.length; i++) {
 			let e = Ele.electors[i];
-			if (e.get_rank() <= n) remove_elector(e);
+			if (e.get_rank() <= n) {
+				remove_elector(e);
+				i--;
+			}
 		}
 	})))
 }

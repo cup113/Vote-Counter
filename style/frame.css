@@ -54,5 +54,6 @@
 
 #changing-frame {
     width: 100%;
+    box-sizing: border-box;
     border: 3px solid gray;
 }
