@@ -1,4 +1,4 @@
 /**
  * @author Jason M. Li
  */
-var version = "2.2.3 (Beta)";
+var version = "2.3.0 (Beta)";

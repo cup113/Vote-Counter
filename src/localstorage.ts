@@ -21,7 +21,8 @@ class Config {
 	public votes: number[]; // 票数（与人名对应）
 	public electorNames: string[]; // 选举人名
 	public voteSingle: number; // 单次票数
-	constructor(version: string, title: string, mainSepLine: number, secSepLine: number, votes: number[], electorNames: string[], voteSingle: number) {
+	public invalidVote: number; // 废票
+	constructor(version: string, title: string, mainSepLine: number, secSepLine: number, votes: number[], electorNames: string[], voteSingle: number, invalidVote: number) {
 		this.version = version;
 		this.title = title;
 		this.mainSepLine = mainSepLine;
@@ -29,6 +30,7 @@ class Config {
 		this.votes = votes;
 		this.electorNames = electorNames;
 		this.voteSingle = voteSingle;
+		this.invalidVote = invalidVote;
 	}
 	/** 
 	 * @return 基础信息（基本不会动的信息）
@@ -75,11 +77,13 @@ class Config {
 		localStorage.setItem("VC_version", this.version);
 		localStorage.setItem("VC_title", this.title);
 		localStorage.setItem("VC_votes", this.votes.join(","));
+		localStorage.setItem("VC_inVote", this.invalidVote.toString());
 		localStorage.setItem("VC_voteSingle", this.voteSingle.toString());
 		localStorage.setItem("VC_basic", JSON.stringify(this.to_object()));
 	}
 	public update_title(): void { localStorage.setItem("VC_title", this.title); }
 	public update_votes(): void { localStorage.setItem("VC_votes", this.votes.join(",")); }
+	public update_inVote(): void { localStorage.setItem("VC_inVote", this.invalidVote.toString()) }
 	public update_voteSingle(): void { localStorage.setItem("VC_voteSingle", this.voteSingle.toString()); }
 	public update_basic(): void { localStorage.setItem("VC_basic", JSON.stringify(this.to_object())); }
 	/**
@@ -109,23 +113,27 @@ export function to_config(obj: Object) {
 		(obj as Config).secSepLine,
 		(obj as Config).votes,
 		(obj as Config).electorNames,
-		(obj as Config).voteSingle
+		(obj as Config).voteSingle,
+		(obj as Config).invalidVote
 	)
 }
 
 var version_temp: Ver.Version = Ver.to_version(version);
 
 if (lgi("VC_version") === null) {
-	config = new Config(version, "计票器", 10, 3, [0, 0, 0], ["张三", "李四", "王五"], 1);
+	config = new Config(version, "计票器", 10, 3, [0, 0, 0], ["张三", "李四", "王五"], 1, 0);
 	config.update();
 }
 
 else {
+	if (lgi("VC_inVote") === null) {
+		localStorage.setItem("VC_inVote", "0");
+	}
 	var tbasic: Config = JSON.parse(lgi("VC_basic")), // 临时 | Config属误导性
 	VC_votes_temp = lgi("VC_votes").split(","),
 	VC_votes: number[] = [];
 	for (let i in VC_votes_temp) VC_votes.push(parseInt(VC_votes_temp[i]));
-	config = new Config(lgi("VC_version"), lgi("VC_title"), tbasic.mainSepLine, tbasic.secSepLine, VC_votes, tbasic.electorNames, parseInt(lgi("VC_voteSingle")));
+	config = new Config(lgi("VC_version"), lgi("VC_title"), tbasic.mainSepLine, tbasic.secSepLine, VC_votes, tbasic.electorNames, parseInt(lgi("VC_voteSingle")), parseInt(lgi("VC_inVote")));
 }
 
 };

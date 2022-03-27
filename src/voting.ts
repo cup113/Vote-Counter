@@ -8,6 +8,16 @@ function add_voteNum(diff: number) {
 	LC.config.update_voteSingle();
 }
 
+function add_inVote(d: number = NaN) {
+	if (isNaN(d)) d = LC.config.voteSingle;
+	LC.config.invalidVote += d;
+	LC.config.update_inVote();
+	Ele.totalVotes += d;
+	$("#invalid-vote").text(LC.config.invalidVote.toString());
+	$("#total-vote").text(Ele.totalVotes.toString());
+	$("#valid-vote").text((Ele.totalVotes - LC.config.invalidVote).toString());
+}
+
 function reset_votes() {
 	var i: string, e: Ele.Elector, pi: number;
 	for (i in Ele.electors) {

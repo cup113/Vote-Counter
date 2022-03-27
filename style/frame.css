@@ -10,6 +10,15 @@
     font-weight: bold;
 }
 
+#stat {
+    font-size: 1.5em;
+    border: 1px dashed black;
+}
+
+#stat>span {
+    margin-right: 1em;
+}
+
 #voting-div {
 	display: inline-block;
 	width: calc(calc(100vw - var(--chart-width)) - 48px);

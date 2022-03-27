@@ -78,6 +78,7 @@ var Ele;
     Ele.ordinal_suffix = ordinal_suffix;
     Ele.electors = [];
     Ele.rankAnimationPlaying = true; // 是否正在处理动画
+    Ele.totalVotes = 0;
     var Elector = /** @class */ (function () {
         function Elector(id, name, vote) {
             if (vote === void 0) { vote = 0; }
@@ -89,6 +90,7 @@ var Ele;
             this.progress = 0.5;
             this.voteButton = $("<button><span>".concat(this.id, "</span><span>").concat(this.name, "</span><span><span>").concat(this.vote, "</span> | <span>").concat(this.rank, "</span><span>").concat(ordinal_suffix(this.rank), "</span></span></button>")).attr({ "class": "button-d vote-button" });
             this.rankSpan = $("<span style=\"--progress: ".concat(this.progress, "; --pro-color: khaki;\"><span><span>").concat(this.rank, "</span><span>").concat(ordinal_suffix(this.rank), "</span></span><span>").concat(this.name, "</span><span>").concat(this.vote, "</span></span>")).attr({ "class": "rank-span" }).css({ "--progress": this.progress.toString(), "--pro-color": "khaki", "display": "relative" });
+            Ele.totalVotes += vote;
             this.speed = new Vector2d(0, 0);
             this.left = 0;
             this.top = 0;
@@ -113,10 +115,13 @@ var Ele;
         Elector.prototype.set_vote = function (vote, update_at_once) {
             if (vote === void 0) { vote = this.vote; }
             if (update_at_once === void 0) { update_at_once = true; }
+            Ele.totalVotes += (vote - this.vote);
             this.vote = vote;
             LC.config.votes[this.get_id() - 1] = vote;
             this.voteButton[0].children[2].children[0].textContent = vote.toString();
             this.rankSpan[0].children[2].textContent = vote.toString();
+            $("#valid-vote").text((Ele.totalVotes - LC.config.invalidVote).toString());
+            $("#total-vote").text(Ele.totalVotes.toString());
             if (update_at_once) {
                 var electors_temp = sort(Ele.electors, greater), votes = map((function (a) { return a.get_vote(); }), electors_temp), elector_now = void 0;
                 for (var i in electors_temp) {

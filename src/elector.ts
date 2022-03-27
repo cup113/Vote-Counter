@@ -69,6 +69,7 @@ export function ordinal_suffix(cardinal: number): string {
 }
 export var electors: Elector[] = [];
 export var rankAnimationPlaying: boolean = true; // 是否正在处理动画
+export var totalVotes: number = 0;
 export class Elector {
 	private id: number; // 编号（从1开始）
 	private name: string; // 名称
@@ -90,6 +91,7 @@ export class Elector {
 		this.progress = 0.5;
 		this.voteButton = $(`<button><span>${this.id}</span><span>${this.name}</span><span><span>${this.vote}</span> | <span>${this.rank}</span><span>${ordinal_suffix(this.rank)}</span></span></button>`).attr({"class": "button-d vote-button"});
 		this.rankSpan = $(`<span style="--progress: ${this.progress}; --pro-color: khaki;"><span><span>${this.rank}</span><span>${ordinal_suffix(this.rank)}</span></span><span>${this.name}</span><span>${this.vote}</span></span>`).attr({"class": "rank-span"}).css({"--progress": this.progress.toString(), "--pro-color": "khaki", "display": "relative"});
+		totalVotes += vote;
 		this.speed = new Vector2d(0, 0);
 		this.left = 0;
 		this.top = 0;
@@ -112,10 +114,13 @@ export class Elector {
 	 * @param update_at_once	是否立即刷新排名
 	 */
 	public set_vote(vote: number = this.vote, update_at_once: boolean = true): void {
+		totalVotes += (vote - this.vote);
 		this.vote = vote;
 		LC.config.votes[this.get_id() - 1] = vote;
 		this.voteButton[0].children[2].children[0].textContent = vote.toString();
 		this.rankSpan[0].children[2].textContent = vote.toString();
+		$("#valid-vote").text((totalVotes - LC.config.invalidVote).toString());
+		$("#total-vote").text(totalVotes.toString());
 		if (update_at_once) {
 			let electors_temp: Elector[] = sort(electors, greater),
 			votes: number[] = map(((a: Elector) => a.get_vote()), electors_temp),

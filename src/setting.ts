@@ -18,7 +18,8 @@ function show_storage() {
 		"secSepLine": LC.config.secSepLine,
 		"votes": LC.config.votes,
 		"electorNames": LC.config.electorNames,
-		"voteSingle": LC.config.voteSingle
+		"voteSingle": LC.config.voteSingle,
+		"invalidVote": LC.config.invalidVote
 	}),
 	$showingDiv: JQuery<HTMLElement> = $("<div></div>")
 	.css({"position": "fixed", "box-sizing": "border-box", "width": "70vw", "height": "70vh", "top": "15vh", "left": "15vw", "background-color": "#eeeeee", "padding": "5rem 1rem 1rem 1rem", "overflow-y": "auto"})
@@ -39,7 +40,13 @@ function import_storage() {
 	.append($(`<div><img src="img/close.svg"></div>`).attr({"class": "button-d close-icon-fullscreen"}).on('click', function () {$("#storage-import-temp").remove();}))
 	.append($("<p>请输入你的存档:</p>"))
 	.append($("<textarea></textarea>").css({"resize": "vertical", "min-height": "40vh", "display": "block", "width": "100%"}))
-	.append($("<button class='button-d'>确定导入</button>").on('click', function () { LC.config = LC.to_config(JSON.parse($("#storage-import-temp>textarea").val() as string)); LC.set_init(); $("#storage-import-temp").remove(); LC.config.update()}))
+	.append($("<button class='button-d'>确定导入</button>").on('click', function () {
+		LC.config = LC.to_config(JSON.parse($("#storage-import-temp>textarea").val() as string));
+		LC.set_init();
+		$("#storage-import-temp").remove();
+		LC.config.update();
+		location.href = location.href;
+	}))
 	.appendTo($("body"));
 }
 
@@ -112,6 +119,9 @@ function remove_elector(elector: Ele.Elector) {
 	var eid = elector.get_id();
 	elector.rankSpan.remove();
 	elector.voteButton.remove();
+	Ele.totalVotes -= elector.get_vote();
+	$("#valid-vote").text((Ele.totalVotes - LC.config.invalidVote).toString());
+	$("#total-vote").text(Ele.totalVotes.toString());
 	Ele.electors.splice(eid - 1, 1);
 	LC.config.votes.splice(eid - 1, 1);
 	LC.config.electorNames.splice(eid - 1, 1);
@@ -138,10 +148,11 @@ function add_elector(afterid: number) {
 		Ele.electors[event.data.id - 1].add_vote();
 	});
 	newEle.rankSpan.appendTo($rankChart);
-	LC.config.votes.splice(afterid - 1, 0, 0);
-	LC.config.electorNames.splice(afterid - 1, 0, "---");
-	for (let e of Ele.electors) {
-		if (e.get_id() > afterid) {
+	LC.config.votes.splice(afterid, 0, 0);
+	LC.config.electorNames.splice(afterid, 0, "---");
+	for (let i in Ele.electors) {
+		let e = Ele.electors[i];
+		if (parseInt(i) > afterid) {
 			e.set_id(e.get_id() + 1);
 			e.voteButton.off("click")
 			.on("click", {id: e.get_id()}, function (event) {
@@ -149,7 +160,6 @@ function add_elector(afterid: number) {
 			});
 		}
 	}
-	newEle.set_id(afterid + 1);
 	Ele.electors[0].set_vote();
 	LC.config.update_basic();
 	LC.config.update_votes();

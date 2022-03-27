@@ -25,6 +25,11 @@
     <div id="vote-tips">
         <!--投票记录区-->
     </div>
+    <div id="stat">
+        <span><span>当前废票数：</span><span id="invalid-vote">0</span></span>
+        <span><span>有效票数：</span><span id="valid-vote">0</span></span>
+        <span><span>总票数：</span><span id="total-vote">0</span></span>
+    </div>
     <div id="voting-div">
         <!--投票区-->
         <span>
@@ -33,6 +38,7 @@
         </span>
         <button onclick="add_voteNum(1);" class="button-d">+</button>
         <button onclick="add_voteNum(-1);" class="button-d">-</button>
+        <button onclick="add_inVote();" class="button-d">废票</button>
         <div id="vote-buttons">
         </div>
     </div
@@ -96,8 +102,8 @@
     <script src="dist/setting.js"></script>
     <script src="dist/localstorage.js"></script>
     <script src="dist/elector.js"></script>
-    <script src="dist/init.js"></script>
     <script src="dist/voting.js"></script>
+    <script src="dist/init.js"></script>
     <script src="dist/animation.js"></script>
     <script src="dist/setting.js"></script>
 </body>
