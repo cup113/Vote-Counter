@@ -22,7 +22,7 @@ function show_storage() {
         .css({ "position": "fixed", "box-sizing": "border-box", "width": "70vw", "height": "70vh", "top": "15vh", "left": "15vw", "background-color": "#eeeeee", "padding": "5rem 1rem 1rem 1rem", "overflow-y": "auto" })
         .attr({ "id": "storage-showing-temp" })
         .append($("<div><img src=\"img/close.svg\"></div>").attr({ "class": "button-d close-icon-fullscreen" }).on('click', function () { $("#storage-showing-temp").remove(); }))
-        .append($("<p>这是你的投票唯一记录摘要(32bit)。对比它可以了解投票是否被修改过。</p>"))
+        .append($("<p>这是你的投票唯一记录摘要(128bit)。对比它可以了解投票是否被修改过。</p>"))
         .append($("<textarea></textarea>").val(LC.config.unique_code()).css({ "resize": "none", "height": "2rem", "width": "100%" }).attr({ "disabled": "disabled" }))
         .append($("<p>这是你的详细存档配置。请把它复制下来并保存到一个安全的地方。</p>"))
         .append($("<textarea></textarea>").val(storage).css({ "resize": "vertical", "min-height": "40vh", "width": "100%" }))

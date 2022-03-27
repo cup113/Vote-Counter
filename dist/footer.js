@@ -14,7 +14,7 @@ function generate_footer(VERSION, github_url, info_detail, year_end, year_start)
     if (year_end === void 0) { year_end = 0; }
     if (year_start === void 0) { year_start = 0; }
     var yearnow = new Date().getFullYear(), $footer = $("footer");
-    $footer.append($("<div>&copy; ".concat((year_start === 0 || year_start === year_end) ? "" : (year_start.toString() + "-")).concat((year_end === 0) ? yearnow.toString() : year_end.toString(), " ").concat(info_detail ? ('<a href="' + github_url + '">cup11</a>') : "cup11", "</div>")).attr({ "child": "1" }));
+    $footer.append($("<div>&copy; ".concat((year_start === 0 || year_start === year_end) ? "" : (year_start.toString() + "-")).concat((year_end === 0) ? yearnow.toString() : year_end.toString(), " ").concat(info_detail ? ('<a href="https://github.com/cup113" target="_blank">cup11</a>') : "cup11", "</div>")).attr({ "child": "1" }));
     if (info_detail) {
         $footer.append($("<div></div>").attr({ "child": 2 }).html("<a href=\"https://github.com/cup113\" target=\"_blank\">\u5173\u4E8E\u5F00\u53D1\u8005</a> <a href=\"".concat(github_url + "issues/", "\" target=\"_blank\">\u53CD\u9988/\u95EE\u9898\u62A5\u544A</a> <a href=\"").concat(github_url, "\" target=\"_blank\">\u5F00\u6E90</a></div>")));
     }

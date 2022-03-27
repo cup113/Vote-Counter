@@ -88,7 +88,7 @@ class Config {
 	public update_basic(): void { localStorage.setItem("VC_basic", JSON.stringify(this.to_object())); }
 	/**
 	 * @brief 获取一个代表当前投票结果的简略字符串(只考虑敏感信息: votes/electorNames)
-	 * @return 32bit字符串
+	 * @return 128bit字符串
 	 */
 	public unique_code(): string {
 		var enstring: string = this.votes.join("|") + this.electorNames.join("|"),
