@@ -2,10 +2,9 @@
  * @file 载入、初始化或修改localStorage
  */
 
-/// <reference path="./md5.ts"/>
-/// <reference path="./footer.ts"/>
-/// <reference path="./about.ts"/>
-/// <reference path="./version.ts"/>
+/// <reference path="../src/version.d.ts"/>
+/// <reference path="../src/md5.d.ts"/>
+/// <reference path="../src/about.d.ts"/>
 
 function lgi(key: string): string { return localStorage.getItem(key); }
 
@@ -91,7 +90,7 @@ class Config {
 	 * @return 128bit字符串
 	 */
 	public unique_code(): string {
-		var enstring: string = this.votes.join("|") + this.electorNames.join("|"),
+		var enstring: string = "$salt$" + this.votes.join("|") + this.electorNames.join("|") + "$salt$",
 		md5_gen = new MD5.MD5();
 		return md5_gen.hex_md5(enstring);
 	}
@@ -139,5 +138,4 @@ else {
 };
 
 LC.set_init();
-generate_footer(version, "https://github.com/cup113/Vote-Counter/", false, 2022, 2021);
 console.log(localStorage.getItem("VC_about") + "\nVersion: " + localStorage.getItem("VC_version"));

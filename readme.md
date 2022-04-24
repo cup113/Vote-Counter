@@ -17,10 +17,10 @@
 
 ## 2. 函数接口
 
-### src\md5.ts
+### Lib\md5.js
 
 `class MD5.MD5` 计算md5哈希值
 
-### src\version.ts
+### Lib\version.js
 
 `class Ver.Version` 版本类

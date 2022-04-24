@@ -18,5 +18,5 @@ function generate_footer(VERSION, github_url, info_detail, year_end, year_start)
     if (info_detail) {
         $footer.append($("<div></div>").attr({ "child": 2 }).html("<a href=\"https://github.com/cup113\" target=\"_blank\">\u5173\u4E8E\u5F00\u53D1\u8005</a> <a href=\"".concat(github_url + "issues/", "\" target=\"_blank\">\u53CD\u9988/\u95EE\u9898\u62A5\u544A</a> <a href=\"").concat(github_url, "\" target=\"_blank\">\u5F00\u6E90</a></div>")));
     }
-    $footer.append($("<div><hr><span>Version: ".concat(VERSION, "</span> <a href=\"readme.html\" target=\"_blank\">\u4F7F\u7528\u8BF4\u660E</a> <a href=\"LICENSE.txt\" target=\"_blank\">\u7248\u6743\u58F0\u660E</a></div>")).attr({ "child": "3" }));
+    $footer.append($("<div><span>Version: ".concat(VERSION, "</span> <a href=\"readme.html\" target=\"_blank\">\u4F7F\u7528\u8BF4\u660E</a> <a href=\"LICENSE.txt\" target=\"_blank\">\u7248\u6743\u58F0\u660E</a></div>")).attr({ "child": "3" }));
 }

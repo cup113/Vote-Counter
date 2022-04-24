@@ -1,13 +1,23 @@
+body {
+	padding-bottom: 3rem;
+}
+
 footer {
-	background-color: #eeeeee;
-	width: calc(100vw - 64px);
-	margin-top: 10vh;
+	text-align: center;
+	width: 100vw;
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	opacity: 0.8;
 	padding: 4px 16px;
 	z-index: 1;
 }
 
 footer>div {
-	margin: 4px 0;
+	display: inline-block;
+	border: 1px dotted gray;
+	margin: 4px 12px;
+	padding: 0 10px;
 }
 
 footer a {

@@ -1,9 +1,9 @@
 /**
  * @file 初始化选举人
  */
-/// <reference path="./localstorage.ts" />
-/// <reference path="./elector.ts" />
-/// <reference path="./voting.ts"/>
+/// <reference path="../src/localstorage.ts" />
+/// <reference path="../src/elector.ts" />
+/// <reference path="../src/voting.ts"/>
 add_inVote(LC.config.invalidVote);
 var $voteButtons = $("#vote-buttons"),
 $rankChart = $("#rank-chart");

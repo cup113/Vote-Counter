@@ -1,8 +1,8 @@
 /**
  * @file 创建投票区或投票人的变更
  */
-/// <reference path="./elector.ts" />
-/// <reference path="./localstorage.ts"/>
+/// <reference path="../src/elector.ts" />
+/// <reference path="../src/localstorage.ts"/>
 function add_voteNum(diff) {
     LC.config.set_voteSingle(LC.config.voteSingle + diff);
     LC.config.update_voteSingle();

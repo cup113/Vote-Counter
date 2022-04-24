@@ -1,10 +1,9 @@
 /**
  * @file 载入、初始化或修改localStorage
  */
-/// <reference path="./md5.ts"/>
-/// <reference path="./footer.ts"/>
-/// <reference path="./about.ts"/>
-/// <reference path="./version.ts"/>
+/// <reference path="../src/version.d.ts"/>
+/// <reference path="../src/md5.d.ts"/>
+/// <reference path="../src/about.d.ts"/>
 function lgi(key) { return localStorage.getItem(key); }
 var LC;
 (function (LC) {
@@ -56,14 +55,6 @@ var LC;
                     this.update_voteSingle();
             }
         };
-        Config.prototype.set_inVote = function (inVote) {
-            if (inVote === void 0) { inVote = this.invalidVote; }
-            Ele.totalVotes += inVote - this.invalidVote;
-            this.invalidVote = inVote;
-            $("#invalid-vote").text(LC.config.invalidVote.toString());
-            $("#total-vote").text(Ele.totalVotes.toString());
-            $("#valid-vote").text((Ele.totalVotes - LC.config.invalidVote).toString());
-        };
         Config.prototype.set_mainSepLine = function (mainSepLine) {
             if (mainSepLine === void 0) { mainSepLine = this.mainSepLine; }
             this.mainSepLine = mainSepLine;
@@ -98,7 +89,7 @@ var LC;
          * @return 128bit字符串
          */
         Config.prototype.unique_code = function () {
-            var enstring = this.votes.join("|") + this.electorNames.join("|"), md5_gen = new MD5.MD5();
+            var enstring = "$salt$" + this.votes.join("|") + this.electorNames.join("|") + "$salt$", md5_gen = new MD5.MD5();
             return md5_gen.hex_md5(enstring);
         };
         return Config;
@@ -133,5 +124,4 @@ var LC;
 })(LC || (LC = {}));
 ;
 LC.set_init();
-generate_footer(version, "https://github.com/cup113/Vote-Counter/", false, 2022, 2021);
 console.log(localStorage.getItem("VC_about") + "\nVersion: " + localStorage.getItem("VC_version"));

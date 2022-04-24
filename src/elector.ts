@@ -1,7 +1,7 @@
 /**
  * @file 创建选举人类及方法
  */
-/// <reference path = "./localstorage.ts" />
+/// <reference path = "../src/localstorage.ts" />
 
 /**
  * @brief 使用归并排序法排序列表（倒序，大的在前）

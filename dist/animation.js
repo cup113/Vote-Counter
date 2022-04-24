@@ -1,7 +1,7 @@
 /**
  * @file 刷新投票提示、排名动画
  */
-/// <reference path="./elector.ts"/>
+/// <reference path="../src/elector.ts"/>
 function fresh() {
     var $votetips = $("#vote-tips");
     if ($votetips[0].children.length !== 0) {

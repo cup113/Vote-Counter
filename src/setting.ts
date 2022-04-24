@@ -1,5 +1,5 @@
-/// <reference path="./localstorage.ts"/>
-/// <reference path="./elector.ts"/>
+/// <reference path="../src/localstorage.ts"/>
+/// <reference path="../src/elector.ts"/>
 
 function click_setting_icon() {
 	$("#settings-div").toggleClass("none-display")
