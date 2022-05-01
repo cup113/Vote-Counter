@@ -19,5 +19,5 @@ function generate_footer(VERSION, github_url, info_detail, show_version, year_en
     if (info_detail) {
         $footer.append($("<div></div>").html("<a href=\"https://github.com/cup113\" target=\"_blank\">\u5173\u4E8E\u5F00\u53D1\u8005</a> <a href=\"".concat(github_url + "issues/", "\" target=\"_blank\">\u53CD\u9988/\u95EE\u9898\u62A5\u544A</a> <a href=\"").concat(github_url, "\" target=\"_blank\">\u5F00\u6E90</a></div>")));
     }
-    $footer.append($("<div><span>Version: ".concat(VERSION, "</span> <a href=\"readme.html\" target=\"_blank\">\u4F7F\u7528\u8BF4\u660E</a> <a href=\"LICENSE.txt\" target=\"_blank\">\u7248\u6743\u58F0\u660E</a>").concat(show_version ? '<a href="version.html" target="blank">更新日志</a>' : "version.html", "</div>")));
+    $footer.append($("<div><span>Version: ".concat(VERSION, "</span> <a href=\"readme.html\" target=\"_blank\">\u4F7F\u7528\u8BF4\u660E</a> <a href=\"LICENSE.txt\" target=\"_blank\">\u7248\u6743\u58F0\u660E</a>").concat(show_version ? '<a href="version.html" target="blank">更新日志</a>' : "", "</div>")));
 }
