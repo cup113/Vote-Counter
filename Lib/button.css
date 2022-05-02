@@ -1,35 +1,33 @@
 .button-i {
 	cursor: text;
 	user-select: text;
+	-webkit-user-select: text;
 	background-color: khaki;
 	padding: 0 1rem;
 	border: 1px solid black;
 }
 
 .button-d {
-	background-color: #f0e68c;
+	background-color: khaki;
 	cursor: pointer;
 	user-select: none;
+	-webkit-user-select: none;
 	padding: 0 1rem;
 	border: 2px solid black;
+	font-size: 1em;
 }
 
-.button-d:hover {
-	background-color: #ddff99;
-}
-
-.button-d:active {
-	background-color: #bbff99;
-	border-top-color: gray;
-	border-left-color: gray;
+.button-d.active {
+	background-color: aqua;
 }
 
 .button-d.close-icon-fullscreen {
 	padding: 0;
 }
 
-.button-d.active {
-	background-color: cyan;
+.button-d:active {
+	border-top-color: gray;
+	border-left-color: gray;
 }
 
 .none-display {
