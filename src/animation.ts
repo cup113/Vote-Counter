@@ -14,14 +14,14 @@ function fresh() {
 	}
 	if (Ele.rankAnimationPlaying) {
 		var $rankChart = $("#rank-chart"),
-		roffset = $rankChart.offset(),
+		roffset = $rankChart.offset() as JQuery.Coordinates,
 		rx = roffset.left,
 		ry = roffset.top,
 		cellsPerCol = Math.ceil(Ele.electors.length / 3),
-		cellWidth = Math.ceil(Ele.electors[0].rankSpan.outerWidth(true)),
-		cellHeight = Ele.electors[0].rankSpan.outerHeight(true);
+		cellWidth = Math.ceil(Ele.electors[0].rankSpan.outerWidth(true) as number),
+		cellHeight = Ele.electors[0].rankSpan.outerHeight(true) as number;
 		for (let e of Ele.electors) {
-			let eoffset = e.rankSpan.offset(),
+			let eoffset = e.rankSpan.offset() as JQuery.Coordinates,
 			ex = eoffset.left,
 			ey = eoffset.top,
 			el = e.get_location(),

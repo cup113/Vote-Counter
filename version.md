@@ -1,22 +1,32 @@
+## 2.5.0 (Beta)
+
+2022/8/1
+1. 修改`license`
+2. 更新`footer.js`
+3. 更新`md5.min.js`
+4. 更新`version.js`
+5. 弃用`ES5`，改用`ES6`
+
 ## 2.4.2 (Beta)
 
 2022/5/2
 1. 重写更新日志格式
-2. 引入最新版`button`与`fullscreen`
-3. 添加html的`viewport`元数据声明
-4. (V2.4.1)引入最新版`footer`
+2. 更新`button.js`
+3. 更新`fullscreen.css`
+4. 添加html的`viewport`元数据声明
+5. (V2.4.1)更新`footer.js`
 
 ## 2.4.0 (Beta)
 
 2022/4/25
 1. 优化文件目录
-2. 引入最新版`footer`
+2. 更新`footer.js`
 
 ## 2.3.1 (Beta)
 
 2022/3/28
 1. 更正存储展示事实错误
-2. 引入最新版`footer`
+2. 更新`footer.js`
 
 ## 2.3.0 (Beta)
 
@@ -34,7 +44,7 @@
 2022/3/22
 1. 修复宽度过大出现横向滚动条漏洞
 2. 修复成员编辑界面部分已知漏洞（如id问题）
-3. (V2.2.2)引入最新版`footer`
+3. (V2.2.2)更新`footer.js`
 
 ## 2.2.1 (Alpha)
 

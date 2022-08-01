@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @file 初始化选举人
  */
@@ -6,8 +7,8 @@
 /// <reference path="../src/voting.ts"/>
 add_inVote(LC.config.invalidVote);
 var $voteButtons = $("#vote-buttons"), $rankChart = $("#rank-chart");
-for (var i in LC.config.electorNames) {
-    var electorName = LC.config.electorNames[i], new_elector = new Ele.Elector(parseInt(i) + 1, electorName, LC.config.votes[i]);
+for (let i in LC.config.electorNames) {
+    let electorName = LC.config.electorNames[i], new_elector = new Ele.Elector(parseInt(i) + 1, electorName, LC.config.votes[i]);
     new_elector.voteButton.appendTo($voteButtons);
     new_elector.voteButton.on("click", { id: new_elector.get_id() }, function (event) {
         Ele.electors[event.data.id - 1].add_vote();

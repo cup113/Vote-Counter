@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @file 创建投票区或投票人的变更
  */
@@ -7,8 +8,7 @@ function add_voteNum(diff) {
     LC.config.set_voteSingle(LC.config.voteSingle + diff);
     LC.config.update_voteSingle();
 }
-function add_inVote(d) {
-    if (d === void 0) { d = NaN; }
+function add_inVote(d = NaN) {
     if (isNaN(d))
         d = LC.config.voteSingle;
     LC.config.invalidVote += d;

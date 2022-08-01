@@ -1,3 +1,4 @@
+"use strict";
 /**
  * @file 刷新投票提示、排名动画
  */
@@ -13,21 +14,20 @@ function fresh() {
     }
     if (Ele.rankAnimationPlaying) {
         var $rankChart = $("#rank-chart"), roffset = $rankChart.offset(), rx = roffset.left, ry = roffset.top, cellsPerCol = Math.ceil(Ele.electors.length / 3), cellWidth = Math.ceil(Ele.electors[0].rankSpan.outerWidth(true)), cellHeight = Ele.electors[0].rankSpan.outerHeight(true);
-        for (var _i = 0, _a = Ele.electors; _i < _a.length; _i++) {
-            var e = _a[_i];
-            var eoffset = e.rankSpan.offset(), ex = eoffset.left, ey = eoffset.top, el = e.get_location(), ty = el % cellsPerCol * cellHeight + ry, tx = Math.floor(el / cellsPerCol) * cellWidth + rx, espeed = e.speed;
+        for (let e of Ele.electors) {
+            let eoffset = e.rankSpan.offset(), ex = eoffset.left, ey = eoffset.top, el = e.get_location(), ty = el % cellsPerCol * cellHeight + ry, tx = Math.floor(el / cellsPerCol) * cellWidth + rx, espeed = e.speed;
             if (Math.abs(ex - tx) <= 0.5) {
                 espeed.x = 0;
             }
             else {
-                var diffx = tx - ex;
+                let diffx = tx - ex;
                 espeed.x = (diffx > 0) ? Math.min(espeed.x + 4, Math.ceil(diffx / 5)) : Math.max(espeed.x - 4, Math.floor(diffx / 5));
             }
             if (Math.abs(ey - ty) <= 0.5) {
                 espeed.y = 0;
             }
             else {
-                var diffy = ty - ey;
+                let diffy = ty - ey;
                 espeed.y = (diffy > 0) ? Math.min(espeed.y + 4, Math.ceil(diffy / 5)) : Math.max(espeed.y - 4, Math.floor(diffy / 5));
             }
             e.move();

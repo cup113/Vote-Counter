@@ -1,3 +1,4 @@
+"use strict";
 /// <reference path="../src/localstorage.ts"/>
 /// <reference path="../src/elector.ts"/>
 function click_setting_icon() {
@@ -21,7 +22,7 @@ function show_storage() {
     }), $showingDiv = $("<div></div>")
         .css({ "position": "fixed", "box-sizing": "border-box", "width": "70vw", "height": "70vh", "top": "15vh", "left": "15vw", "background-color": "#eeeeee", "padding": "5rem 1rem 1rem 1rem", "overflow-y": "auto" })
         .attr({ "id": "storage-showing-temp" })
-        .append($("<div><img src=\"img/close.svg\"></div>").attr({ "class": "button-d close-icon-fullscreen" }).on('click', function () { $("#storage-showing-temp").remove(); }))
+        .append($(`<div><img src="img/close.svg"></div>`).attr({ "class": "button-d close-icon-fullscreen" }).on('click', function () { $("#storage-showing-temp").remove(); }))
         .append($("<p>这是你的投票唯一记录摘要(128bit)。对比它可以了解投票是否被修改过。</p>"))
         .append($("<textarea></textarea>").val(LC.config.unique_code()).css({ "resize": "none", "height": "2rem", "width": "100%" }).attr({ "disabled": "disabled" }))
         .append($("<p>这是你的详细存档配置。请把它复制下来并保存到一个安全的地方。</p>"))
@@ -34,7 +35,7 @@ function import_storage() {
     var $importDiv = $("<div></div>")
         .css({ "position": "fixed", "box-sizing": "border-box", "width": "70vw", "height": "70vh", "top": "15vh", "left": "15vw", "background-color": "#eeeeee", "padding": "5rem 1rem 1rem 1rem", "overflow-y": "auto" })
         .attr({ "id": "storage-import-temp" })
-        .append($("<div><img src=\"img/close.svg\"></div>").attr({ "class": "button-d close-icon-fullscreen" }).on('click', function () { $("#storage-import-temp").remove(); }))
+        .append($(`<div><img src="img/close.svg"></div>`).attr({ "class": "button-d close-icon-fullscreen" }).on('click', function () { $("#storage-import-temp").remove(); }))
         .append($("<p>请输入你的存档:</p>"))
         .append($("<textarea></textarea>").css({ "resize": "vertical", "min-height": "40vh", "display": "block", "width": "100%" }))
         .append($("<button class='button-d'>确定导入</button>").on('click', function () {
@@ -50,13 +51,12 @@ function is_same(a1, a2) {
     var a1len = a1.length, a2len = a2.length;
     if (a1len !== a2len)
         return false;
-    for (var i in a1)
+    for (let i in a1)
         if (a1[i] !== a2[i])
             return false;
     return true;
 }
-function submit_setting(save) {
-    if (save === void 0) { save = false; }
+function submit_setting(save = false) {
     var config_new = LC.to_config({
         version: LC.config.version,
         title: $("#titleSet").val(),
@@ -89,9 +89,9 @@ function submit_setting(save) {
         LC.config.votes = [];
         $("#vote-buttons").empty(),
             $("#rank-chart").empty();
-        var $voteButtons_temp = $("#vote-buttons"), $rankChart_temp = $("#rank-chart");
-        for (var i in config_new.electorNames) {
-            var electorName = config_new.electorNames[i], new_elector = new Ele.Elector(parseInt(i) + 1, electorName, 0);
+        let $voteButtons_temp = $("#vote-buttons"), $rankChart_temp = $("#rank-chart");
+        for (let i in config_new.electorNames) {
+            let electorName = config_new.electorNames[i], new_elector = new Ele.Elector(parseInt(i) + 1, electorName, 0);
             new_elector.voteButton.appendTo($voteButtons_temp);
             new_elector.voteButton.on("click", { id: new_elector.get_id() }, function (event) {
                 Ele.electors[event.data.id - 1].add_vote();
@@ -124,8 +124,7 @@ function remove_elector(elector) {
     Ele.electors.splice(eid - 1, 1);
     LC.config.votes.splice(eid - 1, 1);
     LC.config.electorNames.splice(eid - 1, 1);
-    for (var _i = 0, _a = Ele.electors; _i < _a.length; _i++) {
-        var e = _a[_i];
+    for (let e of Ele.electors) {
         if (e.get_id() > eid) {
             e.set_id(e.get_id() - 1);
             e.voteButton.on("click", { id: e.get_id() }, function (event) {
@@ -148,8 +147,8 @@ function add_elector(afterid) {
     newEle.rankSpan.appendTo($rankChart);
     LC.config.votes.splice(afterid, 0, 0);
     LC.config.electorNames.splice(afterid, 0, "---");
-    for (var i in Ele.electors) {
-        var e = Ele.electors[i];
+    for (let i in Ele.electors) {
+        let e = Ele.electors[i];
         if (parseInt(i) > afterid) {
             e.set_id(e.get_id() + 1);
             e.voteButton.off("click")
@@ -176,8 +175,8 @@ function start_electors_edit() {
     $("#changing-ways>button:nth-of-type(1)").addClass("active");
     $changingWays.attr({ "active": "1" });
     var $editList = $("<div></div>").attr({ "id": "electors-edit-list" }).appendTo($changingFrame.html(''));
-    for (var i in Ele.electors) {
-        var e = Ele.electors[i], pi = parseInt(i);
+    for (let i in Ele.electors) {
+        let e = Ele.electors[i], pi = parseInt(i);
         $("<div></div>").attr({ "index": i })
             .append($("<span></span>").text(e.get_id().toString()))
             .append($("<span></span>").text(e.get_rank().toString() + Ele.ordinal_suffix(e.get_rank())))
@@ -205,7 +204,7 @@ function start_electors_append() {
     $changingFrame.html('<p>请输入要增加的人员，用英文逗号或换行符分隔。</p>').append($("<textarea></textarea>").attr({ "id": "electors-append" }).css({ "width": "90%", "min-height": "2em", "resize": "vertical" }))
         .append($("<button></button>").text("确定").addClass("button-d").on('click', function () {
         var neles = $("#electors-append").val().replace("\r", "").replace("\n", ",").split(",");
-        for (var i in neles) {
+        for (let i in neles) {
             add_elector(Ele.electors.length);
             Ele.electors[Ele.electors.length - 1].set_name(neles[i]);
         }
@@ -220,8 +219,8 @@ function start_electors_remove() {
     $changingWays.attr({ "active": "3" });
     $changingFrame.html('').append($("<div><span>删除第n名及以后: </span><input type='number' id='electors-remove-nlast'></div>").append($("<button>确定</button>").attr({ "class": "button-d" }).on('click', function () {
         var n = parseInt($("#electors-remove-nlast").val());
-        for (var i = 0; i < Ele.electors.length; i++) {
-            var e = Ele.electors[i];
+        for (let i = 0; i < Ele.electors.length; i++) {
+            let e = Ele.electors[i];
             if (e.get_rank() >= n) {
                 remove_elector(e);
                 i--;
@@ -230,8 +229,8 @@ function start_electors_remove() {
     })))
         .append($("<div><span>删除第n名及以前: </span><input type='number' id='electors-remove-nfirst'></div>").append($("<button>确定</button>").attr({ "class": "button-d" }).on('click', function () {
         var n = parseInt($("#electors-remove-nfirst").val());
-        for (var i = 0; i < Ele.electors.length; i++) {
-            var e = Ele.electors[i];
+        for (let i = 0; i < Ele.electors.length; i++) {
+            let e = Ele.electors[i];
             if (e.get_rank() <= n) {
                 remove_elector(e);
                 i--;

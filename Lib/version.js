@@ -1,10 +1,11 @@
+"use strict";
 /**
  * @file 定义Version类
  */
 var Ver;
 (function (Ver) {
-    var Version = /** @class */ (function () {
-        function Version(_first, _second, _third, _fourth, _stage) {
+    class Version {
+        constructor(_first, _second, _third, _fourth, _stage) {
             this.first = 0;
             this.second = 0;
             this.third = 0;
@@ -15,15 +16,13 @@ var Ver;
             this.fourth = _fourth;
             this.stage = _stage;
         }
-        Version.prototype.to_string = function () {
-            return "".concat(this.first, ".").concat(this.second, ".").concat(this.third).concat((this.fourth == -1) ? ("") : ("." + this.fourth.toString())).concat((this.stage.length > 0) ? "(" + this.stage + ")" : "", ")");
-        };
-        return Version;
-    }());
+        to_string() {
+            return `${this.first}.${this.second}.${this.third}${(this.fourth == -1) ? ("") : ("." + this.fourth.toString())}${(this.stage.length > 0) ? "(" + this.stage + ")" : ""})`;
+        }
+    }
     Ver.Version = Version;
     ;
-    function version_later(ver1, ver2, includeEqual) {
-        if (includeEqual === void 0) { includeEqual = true; }
+    function version_later(ver1, ver2, includeEqual = true) {
         if (ver1.first > ver2.first)
             return true;
         else if (ver1.first < ver2.first)
@@ -43,8 +42,7 @@ var Ver;
         return includeEqual;
     }
     Ver.version_later = version_later;
-    function version_earlier(ver1, ver2, includeEqual) {
-        if (includeEqual === void 0) { includeEqual = true; }
+    function version_earlier(ver1, ver2, includeEqual = true) {
         if (ver1.first > ver2.first)
             return false;
         else if (ver1.first < ver2.first)

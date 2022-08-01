@@ -6,7 +6,7 @@
 /// <reference path="../src/md5.d.ts"/>
 /// <reference path="../src/about.d.ts"/>
 
-function lgi(key: string): string { return localStorage.getItem(key); }
+function lgi(key: string): string { return localStorage.getItem(key) as string; }
 
 module LC {
 
