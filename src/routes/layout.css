@@ -1,1 +1,44 @@
 @import 'tailwindcss';
+
+/* 现代控制台 / Modern Swiss：浅色工业风设计令牌。
+   所有面板、按钮、输入框与弹窗都只从这套令牌取值，避免出现第二套视觉语言。 */
+@theme {
+	--font-sans:
+		ui-sans-serif, system-ui, -apple-system, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB',
+		'Microsoft YaHei', 'Noto Sans SC', sans-serif;
+	--font-mono:
+		ui-monospace, 'SFMono-Regular', 'Cascadia Mono', Consolas, 'Liberation Mono', monospace;
+
+	--color-console-bg: #f2f3f5;
+	--color-console-surface: #ffffff;
+	--color-console-raise: #fafafa;
+	--color-console-line: #d8dbdf;
+	--color-console-line-strong: #b6bac0;
+	--color-console-ink: #16181d;
+	--color-console-muted: #6b7280;
+	--color-console-faint: #9aa0a6;
+	--color-accent: #1d4ed8;
+	--color-accent-soft: #eef2ff;
+	--color-danger: #b91c1c;
+	--color-danger-soft: #fef2f2;
+	--color-ok: #15803d;
+
+	--radius-console: 3px;
+}
+
+@layer base {
+	html {
+		background-color: var(--color-console-bg);
+	}
+
+	body {
+		color: var(--color-console-ink);
+		font-variant-numeric: tabular-nums;
+	}
+
+	/* 统一焦点环：不再逐个控件写 focus:ring */
+	:focus-visible {
+		outline: 2px solid var(--color-accent);
+		outline-offset: 2px;
+	}
+}

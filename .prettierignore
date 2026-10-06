@@ -5,5 +5,10 @@ yarn.lock
 bun.lock
 bun.lockb
 
+# Build output & package store
+/.svelte-kit/
+/build/
+/.pnpm-store/
+
 # Miscellaneous
 /static/

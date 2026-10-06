@@ -1,7 +1,7 @@
 {
 	"name": "vote-counter",
 	"private": true,
-	"version": "3.0.0",
+	"version": "3.1.0",
 	"type": "module",
 	"scripts": {
 		"dev": "vite dev",
@@ -15,6 +15,7 @@
 	},
 	"devDependencies": {
 		"@eslint/compat": "^2.0.2",
+		"@lucide/svelte": "^1.52.0",
 		"@eslint/js": "^9.39.2",
 		"@sveltejs/adapter-static": "^3.0.10",
 		"@sveltejs/kit": "^2.50.2",
